@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "weirdaddons.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ChunkGeneratorMixin",
+    "FallingBlockMixin",
+    "RedstoneLampBlockMixin",
+    "SpongeBlockMixin"
+  ],
+  "client": [
+    "MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

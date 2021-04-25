@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "weirdaddons",
+  "version": "${version}",
+
+  "name": "Weird Addons",
+  "description": "The place where I put all my weird carpet changes",
+  "authors": [
+    "PR0CESS"
+  ],
+  "contact": {
+    "homepage": "https://github.com/fxmorin/UpdateSuppressionBlock",
+    "sources": "https://github.com/fxmorin/UpdateSuppressionBlock",
+    "issues": "https://github.com/fxmorin/UpdateSuppressionBlock/issues"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/weirdaddons/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "weirdaddons.WeirdAddonsServer"
+    ]
+  },
+  "mixins": [
+    "weirdaddons.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.16.x",
+    "fabricloader": ">=0.10.0",
+    "carpet": "*"
+  }
+}
