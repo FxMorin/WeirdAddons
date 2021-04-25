@@ -1,8 +1,6 @@
 package weirdaddons.mixins;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.RedstoneLampBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.server.world.ChunkTicket;
@@ -41,7 +39,7 @@ class RedstoneLampBlockMixin extends Block {
             target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"
     ))
     public boolean neighborSetState(World world, BlockPos pos, BlockState state, int flags) {
-        if (WeirdAddonsSettings.lampChunkStatus > 0 && !state.get(LIT)) {
+        if (WeirdAddonsSettings.lampChunkStatus > 0 && !state.get(LIT) && world.getBlockState(pos.down()).isOf(Blocks.BARRIER)) {
             WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, pos, WeirdAddonsSettings.lampChunkStatus));
         }
         return world.setBlockState(pos, state, flags);
@@ -49,11 +47,12 @@ class RedstoneLampBlockMixin extends Block {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (WeirdAddonsSettings.lampChunkStatus > 0 && state.get(LIT) && !world.isReceivingRedstonePower(pos)) {
+        if (state.get(LIT) && !world.isReceivingRedstonePower(pos)) {
             world.setBlockState(pos, state.cycle(LIT), 2);
-            WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, pos, WeirdAddonsSettings.lampChunkStatus));
+            if (WeirdAddonsSettings.lampChunkStatus > 0 && world.getBlockState(pos.down()).isOf(Blocks.BARRIER)) {
+                WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, pos, WeirdAddonsSettings.lampChunkStatus));
+            }
         }
-
     }
 
     @Override

@@ -1,11 +1,11 @@
 package weirdaddons;
 
-import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
-import carpet.settings.Validator;
-import net.minecraft.server.command.ServerCommandSource;
 
 import static carpet.settings.RuleCategory.CREATIVE;
+import static carpet.settings.RuleCategory.BUGFIX;
+import static carpet.settings.RuleCategory.CLIENT;
+import static carpet.settings.RuleCategory.EXPERIMENTAL;
 
 public class WeirdAddonsSettings
 {
@@ -13,7 +13,7 @@ public class WeirdAddonsSettings
     @Rule(
             desc = "Makes it so that sponges give block updates when absorbing water",
             extra = {"Fixes Bug [MC-220636]"},
-            category = {CREATIVE}
+            category = {CREATIVE,BUGFIX}
     )
     public static boolean spongeUpdate = false;
 
@@ -25,7 +25,8 @@ public class WeirdAddonsSettings
 
     @Rule(
             desc = "A game mechanic for instant fall. Requires a lit redstone lamp to be moved in border chunks surrounded by border chunks.",
-            category = {CREATIVE}
+            extra = "Also makes it so that instantFall turns off when generating new chunks.",
+            category = {CREATIVE,EXPERIMENTAL}
     )
     public static boolean instantFallMechanic = false;
 
@@ -40,7 +41,7 @@ public class WeirdAddonsSettings
             desc = "Chunk map display method. Default is just a simple chat display",
             extra = "lamp: Holding a lamp will show a much larger map",
             options = {"chat","lamp"},
-            category = {CREATIVE}
+            category = {CREATIVE,CLIENT}
     )
     public static String lampChunkDisplay = "chat";
 
