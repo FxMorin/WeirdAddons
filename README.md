@@ -41,3 +41,17 @@ lamp: Holding a lamp will show a much larger map
 * Categories: `CREATIVE`, `CLIENT`
 * Additional notes:  
   * This is just a hacky way for me to make a gui bigger when im doing testing. Not meant to be used for any serious projects.
+
+# lampChunkStatus Legend
+- `#ff0000` [Red] Inaccessible Chunks
+- `#000000` [Black] Null Chunks
+- `#555555` [DarkGray] Null Status
+- `#aaaaaa` [Gray] Border Chunks
+- `#55ff55` [Green] Ticking Chunks
+- `#00aa00` [DarkGreen] Entity Processing Chunks
+- `#aa00aa` [Purple] Chunk you're player is in
+- ◎ Chunk containing the redstone lamp
+- ☻ Chunk containing the player
+
+
+
