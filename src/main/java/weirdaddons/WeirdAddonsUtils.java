@@ -55,19 +55,19 @@ public class WeirdAddonsUtils {
                 }
                 if (chunk != null) {
                     if (player != null && player.chunkX == x && player.chunkZ == z) {
-                        result.append("§5☻");   //dark_purple - player chunk
+                        result.append("§5☻"); //dark_purple - player chunk
                     } else {
                         ChunkHolder.LevelType levelType = chunk.getLevelType();
                         if (levelType == ChunkHolder.LevelType.TICKING) {
-                            result.append("§a"+icon);  //green
+                            result.append("§a"+icon); //green
                         } else if (levelType == ChunkHolder.LevelType.ENTITY_TICKING) {
-                            result.append("§2"+icon);   //dark_green
+                            result.append("§2"+icon); //dark_green
                         } else if (levelType == ChunkHolder.LevelType.BORDER) {
-                            result.append("§7"+icon);   //gray
+                            result.append("§7"+icon); //gray
                         } else if (levelType == ChunkHolder.LevelType.INACCESSIBLE) {
                             result.append("§4"+icon); //red
                         } else {
-                            result.append("§8"+icon);   //dark_gray - null levelType
+                            result.append("§8"+icon); //dark_gray - null levelType
                         }
                     }
                 } else {

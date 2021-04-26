@@ -6,7 +6,11 @@
     "ChunkGeneratorMixin",
     "FallingBlockMixin",
     "RedstoneLampBlockMixin",
-    "SpongeBlockMixin"
+    "SpongeBlockMixin",
+    "ScaffoldingBlockMixin",
+    "WorldMixin",
+    "ObserverBlockMixin",
+    "EndCrystalEntityMixin"
   ],
   "client": [
     "MinecraftClientMixin"
