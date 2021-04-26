@@ -25,14 +25,14 @@ public class WeirdAddonsUtils {
     public static void largeChatHud(boolean large) {
         if (large && !chatHudLarge) {
             chatHudLarge = true;
-            WeirdAddonsServer.mc.options.chatScale *= 0.8f;
+            WeirdAddonsServer.mc.options.chatScale *= 0.9f;
             WeirdAddonsServer.mc.options.chatWidth *= 3.5f;
             WeirdAddonsServer.mc.options.chatHeightUnfocused *= 4.5f;
             WeirdAddonsServer.mc.options.chatHeightFocused *= 4.5f;
             WeirdAddonsServer.mc.options.chatLineSpacing *= 0.25f;
         } else if (!large && chatHudLarge) {
             chatHudLarge = false;
-            WeirdAddonsServer.mc.options.chatScale *= 1.2f;
+            WeirdAddonsServer.mc.options.chatScale *= 1.1f;
             WeirdAddonsServer.mc.options.chatWidth /= 3.5f;
             WeirdAddonsServer.mc.options.chatHeightUnfocused /= 4.5f;
             WeirdAddonsServer.mc.options.chatHeightFocused /= 4.5f;
