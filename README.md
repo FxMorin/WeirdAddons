@@ -50,13 +50,6 @@ Scaffolding breaking rules. Change how scaffolding breaks
 * Required options: `break`, `float`,`gravity`
 * Categories: `WEIRD`,`CREATIVE`
 
-## scaffoldingBreaking
-Scaffolding breaking rules. Change how scaffolding breaks
-* Type: `String`
-* Default value: `break`
-* Required options: `break`, `float`,`gravity`
-* Categories: `WEIRD`,`CREATIVE`
-
 ## instantFall
 Re-implementing instant fall into 1.16, what could possibly go wrong 
 * Type: `boolean`  
