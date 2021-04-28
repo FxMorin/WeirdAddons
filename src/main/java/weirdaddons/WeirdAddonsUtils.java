@@ -41,16 +41,15 @@ public class WeirdAddonsUtils {
     }
 
 
-    public static String DisplayChunks(World world, BlockPos pos, int radius){
+    public static String DisplayChunks(World world, ChunkPos pos, int radius){
         ClientPlayerEntity player = WeirdAddonsServer.mc.player;
-        ChunkPos cpos = new ChunkPos(pos);
         ChunkManager chunkManager = world.getChunkManager();
         StringBuilder result = new StringBuilder();
-        for (int x = cpos.x-radius; x <= cpos.x+radius; x++) {
-            for (int z = cpos.z-radius; z <= cpos.z+radius; z++) {
+        for (int x = pos.x-radius; x <= pos.x+radius; x++) {
+            for (int z = pos.z-radius; z <= pos.z+radius; z++) {
                 char icon = '█';
                 WorldChunk chunk = chunkManager.getWorldChunk(x, z, false);
-                if (x == cpos.x && z == cpos.z) {
+                if (x == pos.x && z == pos.z) {
                     icon = '◎';
                 }
                 if (chunk != null) {

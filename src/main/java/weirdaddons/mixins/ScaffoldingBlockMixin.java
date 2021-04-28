@@ -23,15 +23,9 @@ class ScaffoldingBlockMixin extends Block{
 
     @Shadow
     public static final BooleanProperty WATERLOGGED;
-    @Shadow
-    public static final IntProperty DISTANCE;
-    @Shadow
-    public static final BooleanProperty BOTTOM;
 
     static {
         WATERLOGGED = Properties.WATERLOGGED;
-        DISTANCE = Properties.DISTANCE_0_7;
-        BOTTOM = Properties.BOTTOM;
     }
 
     public ScaffoldingBlockMixin(Settings settings) {
@@ -44,12 +38,13 @@ class ScaffoldingBlockMixin extends Block{
             target = "Lnet/minecraft/server/world/ServerWorld;breakBlock(Lnet/minecraft/util/math/BlockPos;Z)Z"
     ))
     public boolean ScaffoldingBreaking(ServerWorld serverWorld, BlockPos pos, boolean drop) {
-        if (WeirdAddonsSettings.scaffoldingBreaking.equals("break")){
-            return serverWorld.breakBlock(pos, true);
+        if (WeirdAddonsSettings.scaffoldingBreaking.equals("float")) {
+            return true;
         } else if (WeirdAddonsSettings.scaffoldingBreaking.equals("gravity")) {
             return serverWorld.spawnEntity(new FallingBlockEntity(serverWorld, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D,serverWorld.getBlockState(pos).with(WATERLOGGED, false)));
+        } else {
+            return serverWorld.breakBlock(pos, true);
         }
-        return false;
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"), cancellable = true)

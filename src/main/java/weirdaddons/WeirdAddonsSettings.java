@@ -1,6 +1,7 @@
 package weirdaddons;
 
 import carpet.settings.Rule;
+import net.minecraft.util.math.ColumnPos;
 
 import static carpet.settings.RuleCategory.CREATIVE;
 import static carpet.settings.RuleCategory.BUGFIX;
@@ -9,6 +10,10 @@ import static carpet.settings.RuleCategory.EXPERIMENTAL;
 
 public class WeirdAddonsSettings
 {
+    public static boolean isDisplayingChunk = false;
+    public static ColumnPos chunkPos;
+    public static int chunkRadius = 5;
+
     private final static String WEIRD = "weird";
 
     @Rule(
@@ -83,5 +88,11 @@ public class WeirdAddonsSettings
             category = {CREATIVE,CLIENT,WEIRD}
     )
     public static String lampChunkDisplay = "chat";
+
+    @Rule(
+            desc = "COLOR!",
+            category = {CLIENT,WEIRD}
+    )
+    public static boolean colorify = false;
 
 }

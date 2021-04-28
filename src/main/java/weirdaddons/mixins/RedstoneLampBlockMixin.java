@@ -40,7 +40,7 @@ class RedstoneLampBlockMixin extends Block {
     ))
     public boolean neighborSetState(World world, BlockPos pos, BlockState state, int flags) {
         if (WeirdAddonsSettings.lampChunkStatus > 0 && !state.get(LIT) && world.getBlockState(pos.down()).isOf(Blocks.BARRIER)) {
-            WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, pos, WeirdAddonsSettings.lampChunkStatus));
+            WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, new ChunkPos(pos), WeirdAddonsSettings.lampChunkStatus));
         }
         return world.setBlockState(pos, state, flags);
     }
@@ -50,7 +50,7 @@ class RedstoneLampBlockMixin extends Block {
         if (state.get(LIT) && !world.isReceivingRedstonePower(pos)) {
             world.setBlockState(pos, state.cycle(LIT), 2);
             if (WeirdAddonsSettings.lampChunkStatus > 0 && world.getBlockState(pos.down()).isOf(Blocks.BARRIER)) {
-                WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, pos, WeirdAddonsSettings.lampChunkStatus));
+                WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, new ChunkPos(pos), WeirdAddonsSettings.lampChunkStatus));
             }
         }
     }
