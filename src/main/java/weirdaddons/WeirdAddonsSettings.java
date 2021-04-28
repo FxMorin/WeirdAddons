@@ -89,10 +89,4 @@ public class WeirdAddonsSettings
     )
     public static String lampChunkDisplay = "chat";
 
-    @Rule(
-            desc = "COLOR!",
-            category = {CLIENT,WEIRD}
-    )
-    public static boolean colorify = false;
-
 }
