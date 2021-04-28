@@ -4,12 +4,10 @@ import net.minecraft.block.*;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import weirdaddons.WeirdAddonsSettings;
 
@@ -21,10 +19,10 @@ public class FallingBlockMixin extends Block {
         super(settings);
     }
 
-    @Shadow
-    public static boolean canFallThrough(BlockState state){
+    @Shadow public static boolean canFallThrough(BlockState state){
         return true;
     }
+    @Shadow protected void configureFallingBlockEntity(FallingBlockEntity fallingBlockEntity) {}
 
     @Inject(method = "scheduledTick", at = @At("HEAD"), cancellable = true)
     public void onTryInstantFall(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
@@ -39,9 +37,5 @@ public class FallingBlockMixin extends Block {
             }
             ci.cancel();
         }
-    }
-
-    @Shadow
-    protected void configureFallingBlockEntity(FallingBlockEntity fallingBlockEntity) {
     }
 }

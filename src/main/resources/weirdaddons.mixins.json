@@ -3,6 +3,8 @@
   "package": "weirdaddons.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ServerWorldMixin",
+    "ServerTickSchedulerMixin",
     "ChunkGeneratorMixin",
     "FallingBlockMixin",
     "RedstoneLampBlockMixin",

@@ -1,23 +1,17 @@
 package weirdaddons.mixins;
 
 import net.minecraft.block.*;
-import net.minecraft.item.Item;
 import net.minecraft.server.world.ChunkHolder;
-import net.minecraft.server.world.ChunkTicket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.collection.SortedArraySet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkManager;
-import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import weirdaddons.WeirdAddonsSettings;
 import weirdaddons.WeirdAddonsUtils;
@@ -27,8 +21,7 @@ import java.util.Random;
 @Mixin(RedstoneLampBlock.class)
 class RedstoneLampBlockMixin extends Block {
 
-    @Shadow
-    public static BooleanProperty LIT;
+    @Shadow public static BooleanProperty LIT;
 
     public RedstoneLampBlockMixin(Settings settings) {
         super(settings);
@@ -57,24 +50,46 @@ class RedstoneLampBlockMixin extends Block {
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (moved && WeirdAddonsSettings.instantFallMechanic && state.get(LIT)) {
-            boolean success = true;
+        if (moved && (WeirdAddonsSettings.instantFallMechanic || WeirdAddonsSettings.instantTileTickMechanicNum == 1) && state.get(LIT)) {
+            boolean successInstantFall = WeirdAddonsSettings.instantFallMechanic;
+            boolean successInstantTile = WeirdAddonsSettings.instantTileTickMechanicNum == 1;
             ChunkPos cpos = new ChunkPos(pos);
             ChunkManager chunkManager = world.getChunkManager();
-            for (int x = cpos.x-1; x <= cpos.x+1; x++) {
-                for (int z = cpos.z-1; z <= cpos.z+1; z++) {
+            for (int x = cpos.x - 1; x <= cpos.x + 1; x++) {
+                for (int z = cpos.z - 1; z <= cpos.z + 1; z++) {
                     WorldChunk chunk = chunkManager.getWorldChunk(x, z, false);
                     if (chunk != null) {
                         ChunkHolder.LevelType levelType = chunk.getLevelType();
-                        if (levelType != ChunkHolder.LevelType.BORDER) {
-                            success = false;
-                            break;
+                        if (x == cpos.x && z == cpos.z) {
+                            if (levelType != ChunkHolder.LevelType.BORDER) {
+                                successInstantFall = false;
+                                successInstantTile = false;
+                                break;
+                            }
+                        } else {
+                            if (levelType == ChunkHolder.LevelType.BORDER) {
+                                successInstantTile = false;
+                                if (!successInstantFall) {break;}
+                            } else if (levelType == ChunkHolder.LevelType.TICKING) {
+                                successInstantFall = false;
+                                if (!successInstantTile) {break;}
+                            } else {
+                                successInstantFall = false;
+                                successInstantTile = false;
+                                break;
+                            }
                         }
                     }
                 }
-                if (!success) { break;}
+                if (!successInstantFall && !successInstantTile) {
+                    break;
+                }
             }
-            if (success){ WeirdAddonsSettings.instantFall = true;}
+            if (successInstantFall) {
+                WeirdAddonsSettings.instantFall = true;
+            } else if (successInstantTile) {
+                WeirdAddonsSettings.instantTileTick = true;
+            }
         }
         if (this.hasBlockEntity() && !state.isOf(newState.getBlock())) {
             world.removeBlockEntity(pos);

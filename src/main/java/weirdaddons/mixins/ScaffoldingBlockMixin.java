@@ -4,7 +4,6 @@ import net.minecraft.block.*;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 
@@ -21,8 +20,7 @@ import java.util.Random;
 @Mixin(ScaffoldingBlock.class)
 class ScaffoldingBlockMixin extends Block{
 
-    @Shadow
-    public static final BooleanProperty WATERLOGGED;
+    @Shadow public static final BooleanProperty WATERLOGGED;
 
     static {
         WATERLOGGED = Properties.WATERLOGGED;

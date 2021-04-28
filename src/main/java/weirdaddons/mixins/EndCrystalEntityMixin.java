@@ -37,10 +37,8 @@ public class EndCrystalEntityMixin extends Entity {
                 if (WeirdAddonsSettings.crystalOverdose || !source.isExplosive()) {
                     this.world.createExplosion(null, this.getX(), this.getY(), this.getZ(), 6.0F, Explosion.DestructionType.DESTROY);
                 }
-
                 this.crystalDestroyed(source);
             }
-
             return true;
         }
     }

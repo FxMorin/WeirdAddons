@@ -8,11 +8,19 @@ End Crystals now explode when damaged from explosions. End Crystal chaining
 * Default value: `false`  
 * Required options: `true`, `false`  
 * Categories: `WEIRD`,`CREATIVE` 
-
+* Additional notes:
+  * Fixes Bug [MC-118429]
+  
 ## observerDelay
-Change delay length of observers
+Change the delay length of observers
 * Type: `int`  
 * Default value: `2` 
+* Categories: `WEIRD`,`CREATIVE`
+
+## observerPulse
+Change the pulse length of observers
+* Type: `int`
+* Default value: `2`
 * Categories: `WEIRD`,`CREATIVE`
 
 ## blockUpdateHell
@@ -43,12 +51,74 @@ Change the max amount of that a sponge can absorb
 * Default value: `64`
 * Categories: `WEIRD`,`CREATIVE`
 
+## spongeLava
+The sponge now absorbs lava instead of water, you happy now?
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+
+## spongeInfinite
+Removes all restrictions that sponges have
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+  * You can still change the spongeLimit to avoid crashing. spongeLimit is ignored if its the default value!
+
+## spongeFaster
+Modify sponges so that the blocks they remove don't create blockUpdates
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+  * Only really noticeable when using spongeInfinite
+
+## spongeCeption
+Sponge, sponges itself
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+
 ## scaffoldingBreaking
 Scaffolding breaking rules. Change how scaffolding breaks
 * Type: `String`
 * Default value: `break`
 * Required options: `break`, `float`,`gravity`
 * Categories: `WEIRD`,`CREATIVE`
+
+## instantLiquidFlow
+Instant-Liquid flow in 1.16, basically instant tile ticks but for liquids
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+
+## fastTileTicks
+Makes all tile ticks happen within the next tick
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+
+## instantTileTick
+Re-implementing instant tile ticks into 1.16. Although it's more of an imitation
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+
+## instantTileTickMechanic
+A game mechanic for instant tick ticks. Requires a lit redstone lamp to be moved in border chunks surrounded by Ticking Chunks
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`, `crashFix`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+  * Also makes it so that instantTileTick crashes the server when generating new chunks
 
 ## instantFall
 Re-implementing instant fall into 1.16, what could possibly go wrong 
@@ -90,12 +160,12 @@ lamp: Holding a lamp will show a much larger map
 - `#aaaaaa` [Gray] Border Chunks
 - `#55ff55` [Green] Ticking Chunks
 - `#00aa00` [DarkGreen] Entity Processing Chunks
-- `#aa00aa` [Purple] Chunk you're player is in
+- `#aa00aa` [Purple] Chunk your player is in
 - ◎ Chunk containing the redstone lamp
 - ☻ Chunk containing the player
 
 # /weird
-/weird is the main command for the carpet extension. Currently it only adds the chunk actions:
+/weird is the main command for the carpet extension. Currently, it only adds the chunk actions:
 `/weird chunk <set|radius|start|stop>`
 
 

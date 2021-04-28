@@ -11,8 +11,7 @@ import static net.minecraft.server.command.CommandManager.argument;
 public class WeirdAddonsCommands {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
-        // This is totally not sketch or anything. Totally didn't just throw this together within a couple minutes...
+    {   // This is totally not sketch or anything. Totally didn't just throw this together within a couple minutes...
         dispatcher.register(literal("weird").
                 then(literal("chunk").
                         then(literal("set").
@@ -63,6 +62,5 @@ public class WeirdAddonsCommands {
                             return 1;
                                 })
                         ));
-
     }
 }

@@ -2,7 +2,6 @@ package weirdaddons.mixins;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.ChunkPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,10 +19,12 @@ public class MinecraftClientMixin
     @Inject(at = @At("HEAD"), method = "tick")
     private void onClientTick(CallbackInfo info) {
         if (this.world != null) {
-            if (WeirdAddonsSettings.lampChunkStatus > 0 && WeirdAddonsSettings.lampChunkDisplay.equals("lamp") && WeirdAddonsServer.mc.player != null && WeirdAddonsServer.mc.player.inventory.getMainHandStack().getName().getString().equals("Redstone Lamp")) {
-                WeirdAddonsUtils.largeChatHud(true);
-            } else {
-                WeirdAddonsUtils.largeChatHud(false);
+            if (WeirdAddonsSettings.lampChunkStatus > 0 && WeirdAddonsSettings.lampChunkDisplay.equals("lamp")){
+                if (WeirdAddonsServer.mc.player != null && WeirdAddonsServer.mc.player.inventory.getMainHandStack().getName().getString().equals("Redstone Lamp")) {
+                    WeirdAddonsUtils.largeChatHud(true);
+                } else {
+                    WeirdAddonsUtils.largeChatHud(false); //Add validator to turn this off correctly
+                }
             }
         }
     }
