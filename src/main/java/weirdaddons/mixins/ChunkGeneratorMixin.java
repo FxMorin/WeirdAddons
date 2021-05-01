@@ -8,10 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import weirdaddons.WeirdAddonsServer;
 import weirdaddons.WeirdAddonsSettings;
-
-import java.util.Objects;
 
 @Mixin(ChunkGenerator.class)
 public abstract class ChunkGeneratorMixin {
@@ -21,12 +18,15 @@ public abstract class ChunkGeneratorMixin {
         if (WeirdAddonsSettings.instantFallMechanic && WeirdAddonsSettings.instantFall) {
             WeirdAddonsSettings.instantFall = false;
         }
-        if (WeirdAddonsSettings.instantTileTickMechanicNum != 0 && WeirdAddonsSettings.instantTileTick) {
+        if (WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.FALSE && WeirdAddonsSettings.instantTileTick) {
             WeirdAddonsSettings.instantTileTick = false;
-            if (WeirdAddonsSettings.instantTileTickMechanicNum == 1) { //If crashFix is not on
+            if (WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLA || WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) {
+                WeirdAddonsSettings.instantLiquidFlow = false;
+            }
+            if (WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.CRASHFIX && WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) { //If crashFix is not on
                 throw new StackOverflowError();
             } else {
-                Messenger.print_server_message(Objects.requireNonNull(WeirdAddonsServer.mc.getServer()), "InstantTileTick caused a server crash from region: "+region.toString()+" - Region Center Chunk: ["+region.getCenterChunkX()+","+region.getCenterChunkZ()+"]");
+                Messenger.print_server_message(region.toServerWorld().getServer(), "InstantTileTick caused a server crash from region: "+region.toString()+" - Region Center Chunk: ["+region.getCenterChunkX()+","+region.getCenterChunkZ()+"]");
             }
         }
     }

@@ -1,7 +1,9 @@
 package weirdaddons;
 
-import net.minecraft.client.network.ClientPlayerEntity;
+import carpet.CarpetServer;
 import net.minecraft.network.MessageType;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.ChunkPos;
@@ -9,35 +11,24 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkManager;
 import net.minecraft.world.chunk.WorldChunk;
 
+import java.util.*;
+
 public class WeirdAddonsUtils {
 
-    private static boolean chatHudLarge = false;
+    public static HashSet<UUID> playersWatching = new HashSet<>();
 
-    public static void sendToPlayer(String msg) {
-        WeirdAddonsServer.mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(msg), WeirdAddonsServer.mc.player.getUuid());
+    public static void sendToPlayer(UUID playerUUID, String msg) {
+        CarpetServer.minecraft_server.getPlayerManager().getPlayer(playerUUID).sendMessage(new LiteralText(msg), MessageType.SYSTEM,playerUUID);
     }
 
-    public static void largeChatHud(boolean large) {
-        if (large && !chatHudLarge) {
-            chatHudLarge = true;
-            WeirdAddonsServer.mc.options.chatScale *= 0.9f;
-            WeirdAddonsServer.mc.options.chatWidth *= 3.5f;
-            WeirdAddonsServer.mc.options.chatHeightUnfocused *= 4.5f;
-            WeirdAddonsServer.mc.options.chatHeightFocused *= 4.5f;
-            WeirdAddonsServer.mc.options.chatLineSpacing *= 0.25f;
-        } else if (!large && chatHudLarge) {
-            chatHudLarge = false;
-            WeirdAddonsServer.mc.options.chatScale *= 1.1f;
-            WeirdAddonsServer.mc.options.chatWidth /= 3.5f;
-            WeirdAddonsServer.mc.options.chatHeightUnfocused /= 4.5f;
-            WeirdAddonsServer.mc.options.chatHeightFocused /= 4.5f;
-            WeirdAddonsServer.mc.options.chatLineSpacing *= 1.75f;
+    public static void updateDisplayingChunks(MinecraftServer server) {
+        ChunkPos chunkPos = new ChunkPos(WeirdAddonsSettings.chunkPos.x, WeirdAddonsSettings.chunkPos.z);
+        for (UUID player : playersWatching) {
+            sendToPlayer(player, DisplayChunks(WeirdAddonsSettings.chunkWorld, chunkPos, WeirdAddonsSettings.chunkRadius, player));
         }
     }
 
-
-    public static String DisplayChunks(World world, ChunkPos pos, int radius){
-        ClientPlayerEntity player = WeirdAddonsServer.mc.player;
+    public static String DisplayChunks(World world, ChunkPos pos, int radius, UUID playerUUID){
         ChunkManager chunkManager = world.getChunkManager();
         StringBuilder result = new StringBuilder();
         for (int x = pos.x-radius; x <= pos.x+radius; x++) {
@@ -48,8 +39,20 @@ public class WeirdAddonsUtils {
                     icon = '◎';
                 }
                 if (chunk != null) {
-                    if (player != null && player.chunkX == x && player.chunkZ == z) {
-                        result.append("§5☻"); //dark_purple - player chunk
+                    boolean isPlayerChunk = false;
+                    for (ServerPlayerEntity player : CarpetServer.minecraft_server.getPlayerManager().getPlayerList()) {
+                        if (player != null && player.chunkX == x && player.chunkZ == z) {
+                            isPlayerChunk = true;
+                            break;
+                        }
+                    }
+                    if (isPlayerChunk) {
+                        ServerPlayerEntity player = CarpetServer.minecraft_server.getPlayerManager().getPlayer(playerUUID);
+                        if (player != null && player.chunkX == x && player.chunkZ == z) {
+                            result.append("§5☻");
+                        } else {
+                            result.append("§5"+icon);
+                        }
                     } else {
                         ChunkHolder.LevelType levelType = chunk.getLevelType();
                         if (levelType == ChunkHolder.LevelType.TICKING) {

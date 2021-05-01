@@ -3,6 +3,10 @@
   "package": "weirdaddons.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ThreadedAnvilChunkStorageMixin",
+    "TridentEntityMixin",
+    "EnchantCommandMixin",
+    "ExplosionMixin",
     "ServerWorldMixin",
     "ServerTickSchedulerMixin",
     "ChunkGeneratorMixin",
@@ -13,9 +17,6 @@
     "WorldMixin",
     "ObserverBlockMixin",
     "EndCrystalEntityMixin"
-  ],
-  "client": [
-    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

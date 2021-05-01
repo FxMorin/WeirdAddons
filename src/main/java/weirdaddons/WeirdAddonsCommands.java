@@ -1,9 +1,12 @@
 package weirdaddons;
 
+import carpet.CarpetServer;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.command.argument.ColumnPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
+
+import java.util.UUID;
 
 import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandManager.argument;
@@ -12,26 +15,41 @@ public class WeirdAddonsCommands {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {   // This is totally not sketch or anything. Totally didn't just throw this together within a couple minutes...
-        dispatcher.register(literal("weird").
+        dispatcher.register(literal("weird").requires((serverCommandSource) -> {
+                    return !CarpetServer.minecraft_server.isDedicated() || serverCommandSource.hasPermissionLevel(2);
+                }).
                 then(literal("chunk").
-                        then(literal("set").
-                            then(argument("daChunk", ColumnPosArgumentType.columnPos()).
+                        then(literal("watch").
                                 executes((c)-> {
-                                    WeirdAddonsSettings.chunkPos = ColumnPosArgumentType.getColumnPos(c, "daChunk");
-                                    WeirdAddonsUtils.sendToPlayer("Targetted chunk set to: "+WeirdAddonsSettings.chunkPos);
+                                    UUID playerUUID = c.getSource().getPlayer().getUuid();
+                                    if (WeirdAddonsUtils.playersWatching.contains(playerUUID)) {
+                                        WeirdAddonsUtils.playersWatching.remove(playerUUID);
+                                        WeirdAddonsUtils.sendToPlayer(playerUUID,"You are no longer watching chunk activity!");
+                                    } else {
+                                        WeirdAddonsUtils.playersWatching.add(playerUUID);
+                                        WeirdAddonsUtils.sendToPlayer(playerUUID,"You are now watching chunk activity!");
+                                    }
+                                    return 1;
+                                })
+                        ).
+                        then(literal("set").
+                            then(argument("chunk", ColumnPosArgumentType.columnPos()).
+                                executes((c)-> {
+                                    WeirdAddonsSettings.chunkPos = ColumnPosArgumentType.getColumnPos(c, "chunk");
+                                    WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Targeted chunk set to: "+WeirdAddonsSettings.chunkPos);
                                     return 1;
                                 }))).
                         then(literal("start").
                                 executes((c)-> {
-                                    if (!WeirdAddonsServer.mc.isInSingleplayer()) {
-                                        WeirdAddonsUtils.sendToPlayer("Currently this feature is only available in singleplayer cause im lazy :)");
-                                    } else if (WeirdAddonsSettings.chunkPos == null) {
-                                        WeirdAddonsUtils.sendToPlayer("A chunk must be specified before this can be enabled!");
+                                    if (WeirdAddonsSettings.chunkPos == null) {
+                                        WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"A chunk must be specified before this can be enabled!");
                                     } else if (WeirdAddonsSettings.isDisplayingChunk) {
-                                        WeirdAddonsUtils.sendToPlayer("Chunk has already started!");
+                                        WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Chunk has already started!");
                                     } else {
+                                        WeirdAddonsUtils.playersWatching.add(c.getSource().getPlayer().getUuid());
+                                        WeirdAddonsSettings.chunkWorld = c.getSource().getPlayer().world;
                                         WeirdAddonsSettings.isDisplayingChunk = true;
-                                        WeirdAddonsUtils.sendToPlayer("Chunk has started!");
+                                        WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Chunk has started!");
                                     }
                                     return 1;
                                 })
@@ -40,10 +58,11 @@ public class WeirdAddonsCommands {
                                 executes((c)-> {
                                     if (WeirdAddonsSettings.isDisplayingChunk) {
                                         WeirdAddonsSettings.isDisplayingChunk = false;
-                                        WeirdAddonsUtils.sendToPlayer("Chunk has stopped!");
+                                        WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Chunk has stopped!");
                                     } else {
-                                        WeirdAddonsUtils.sendToPlayer("Chunk is not running!");
+                                        WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Chunk is not running!");
                                     }
+                                    WeirdAddonsUtils.playersWatching.clear();
                                     return 1;
                                 })
                         ).
@@ -51,14 +70,19 @@ public class WeirdAddonsCommands {
                                 then(argument("radius", IntegerArgumentType.integer(0)).
                                     executes((c)-> {
                                         WeirdAddonsSettings.chunkRadius = IntegerArgumentType.getInteger(c, "radius");
-                                        WeirdAddonsUtils.sendToPlayer("Chunk Radius has been set to: "+WeirdAddonsSettings.chunkRadius);
+                                        WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Chunk Radius has been set to: "+WeirdAddonsSettings.chunkRadius);
                                     return 1;
                                 }))
                         )
                 ).
+                /*then(literal("tick").
+                        then(literal("chunk").
+                                then(argument("rate", floatArg(0.1F, 500.0F)).
+                                        suggests( (c, b) -> suggestMatching(new String[]{"20.0"},b)).
+                                        executes((c) -> setChunkTps(c.getSource(), getFloat(c, "rate")))))).*/
                 then(literal("control").
                         executes((c)-> {
-                            WeirdAddonsUtils.sendToPlayer("Not implemented yet...");
+                            WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Not implemented yet...");
                             return 1;
                                 })
                         ));

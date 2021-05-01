@@ -27,32 +27,11 @@ class RedstoneLampBlockMixin extends Block {
         super(settings);
     }
 
-    @Redirect(method = "Lnet/minecraft/block/RedstoneLampBlock;neighborUpdate(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"
-    ))
-    public boolean neighborSetState(World world, BlockPos pos, BlockState state, int flags) {
-        if (WeirdAddonsSettings.lampChunkStatus > 0 && !state.get(LIT) && world.getBlockState(pos.down()).isOf(Blocks.BARRIER)) {
-            WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, new ChunkPos(pos), WeirdAddonsSettings.lampChunkStatus));
-        }
-        return world.setBlockState(pos, state, flags);
-    }
-
-    @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (state.get(LIT) && !world.isReceivingRedstonePower(pos)) {
-            world.setBlockState(pos, state.cycle(LIT), 2);
-            if (WeirdAddonsSettings.lampChunkStatus > 0 && world.getBlockState(pos.down()).isOf(Blocks.BARRIER)) {
-                WeirdAddonsUtils.sendToPlayer(WeirdAddonsUtils.DisplayChunks(world, new ChunkPos(pos), WeirdAddonsSettings.lampChunkStatus));
-            }
-        }
-    }
-
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (moved && (WeirdAddonsSettings.instantFallMechanic || WeirdAddonsSettings.instantTileTickMechanicNum == 1) && state.get(LIT)) {
+        if (moved && (WeirdAddonsSettings.instantFallMechanic || WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.FALSE) && state.get(LIT)) {
             boolean successInstantFall = WeirdAddonsSettings.instantFallMechanic;
-            boolean successInstantTile = WeirdAddonsSettings.instantTileTickMechanicNum == 1;
+            boolean successInstantTile = WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.FALSE;
             ChunkPos cpos = new ChunkPos(pos);
             ChunkManager chunkManager = world.getChunkManager();
             for (int x = cpos.x - 1; x <= cpos.x + 1; x++) {
@@ -89,6 +68,9 @@ class RedstoneLampBlockMixin extends Block {
                 WeirdAddonsSettings.instantFall = true;
             } else if (successInstantTile) {
                 WeirdAddonsSettings.instantTileTick = true;
+                if (WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLA || WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) {
+                    WeirdAddonsSettings.instantLiquidFlow = true;
+                }
             }
         }
         if (this.hasBlockEntity() && !state.isOf(newState.getBlock())) {

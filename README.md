@@ -1,5 +1,5 @@
 # WeirdAddons
-fabric-carpet extension mod which adds a bunch of interesting but weird new features.
+[Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension mod which adds a bunch of interesting but weird new features.
 
 # Features
 ## crystalOverdose
@@ -83,6 +83,53 @@ Sponge, sponges itself
 * Required options: `true`, `false`
 * Categories: `WEIRD`,`CREATIVE`
 
+## spongeReusable
+Sponge does not become wet when used
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+  * If spongeCeption is enabled, this will not do anything
+
+## spongeAbsorbsExplosions
+Sponge will prevent block explosion damage if its in the tnt list of blocks to break
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+
+## enchantmentOverride
+Allows you to enchant past the highest vanilla enchant limit using /enchant
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+  * Also makes it so every enchantment works on all items
+
+## uncappedTridentSpeed
+Makes it so that tridents can move just as fast as they usually do on the y-axis on the x & z axis
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
+
+## uncappedViewDistance
+Usually the maximum viewDistance is 32, this will allow it to be much higher
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
+* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
+
+## executeBlockLimit
+Customizable execute volume limit
+* Type: `int`
+* Default value: `32768`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+  * It's weird cause nobody knows this limit exists xD
+  
 ## scaffoldingBreaking
 Scaffolding breaking rules. Change how scaffolding breaks
 * Type: `String`
@@ -136,37 +183,34 @@ A game mechanic for instant fall. Requires a lit redstone lamp to be moved in bo
 * Additional notes:  
   * Also makes it so that instantFall turns off when generating new chunks
 
-## lampChunkStatus
-Makes it so that a lamp on top of a barrier block when un-powered sends the status of the chunks around it
-int is the radius of the map (Positive Integer). default 0 disables the feature
-* Type: `int`  
-* Default value: `0`
+## preventBreaking
+Prevents all players from breaking blocks
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`, `false`
 * Categories: `WEIRD`,`CREATIVE`
 
-## lampChunkDisplay
-Chunk map display method. Default is just a simple chat display
-lamp: Holding a lamp will show a much larger map
-* Type: `String`  
-* Default value: `chat`  
-* Required options: `chat`, `lamp`  
-* Categories: `WEIRD`,`CREATIVE`, `CLIENT`
-* Additional notes:  
-  * This is just a hacky way for me to make a gui bigger when im doing testing. Not meant to be used for any serious projects.
-
-# Chunk & lampChunkStatus Legend
+# Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
 - `#000000` [Black] Null Chunks
 - `#555555` [DarkGray] Null Status
 - `#aaaaaa` [Gray] Border Chunks
 - `#55ff55` [Green] Ticking Chunks
 - `#00aa00` [DarkGreen] Entity Processing Chunks
-- `#aa00aa` [Purple] Chunk your player is in
+- `#aa00aa` [Purple] Chunk a player is in
 - ◎ Chunk containing the redstone lamp
-- ☻ Chunk containing the player
+- ☻ Chunk containing your player
 
 # /weird
 /weird is the main command for the carpet extension. Currently, it only adds the chunk actions:
-`/weird chunk <set|radius|start|stop>`
+`/weird chunk <watch|set|radius|start|stop>`
+ - chunk 
+   - watch - Toggles on & off if you want to watch the chunk
+   - set - Sets the chunk that should be watched
+   - radius - Sets the amount of chunks that should be watched next to it
+   - start - Starts displaying the chunks
+   - stop - Stops displaying the chunks
+
 
 
 

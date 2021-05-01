@@ -78,6 +78,8 @@ public class SpongeBlockMixin extends Block {
     protected boolean spongeCeption(World world, BlockPos pos, BlockState state, int flags) {
         if (WeirdAddonsSettings.spongeCeption) {
             return world.setBlockState(pos, Blocks.AIR.getDefaultState(), WeirdAddonsSettings.spongeUpdate ? 3 : 2);
+        } else if (WeirdAddonsSettings.spongeReusable) {
+            return true;
         }
         return world.setBlockState(pos, Blocks.WET_SPONGE.getDefaultState(), WeirdAddonsSettings.spongeUpdate ? 3 : 2);
     }
