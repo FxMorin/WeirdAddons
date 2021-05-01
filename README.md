@@ -7,7 +7,7 @@ End Crystals now explode when damaged from explosions. End Crystal chaining
 * Type: `boolean`  
 * Default value: `false`  
 * Required options: `true`, `false`  
-* Categories: `WEIRD`,`CREATIVE` 
+* Categories: `WEIRD`,`CREATIVE`,`BUGFIX` 
 * Additional notes:
   * Fixes Bug [MC-118429]
   
