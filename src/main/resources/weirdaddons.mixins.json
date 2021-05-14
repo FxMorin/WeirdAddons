@@ -6,7 +6,6 @@
     "AbstractBlockStateMixin",
     "ChunkGeneratorMixin",
     "EnchantCommandMixin",
-    "AnvilScreenMixin",
     "EndCrystalEntityMixin",
     "ExplosionMixin",
     "FallingBlockMixin",
