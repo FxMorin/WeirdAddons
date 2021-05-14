@@ -14,7 +14,7 @@ Simple toggle for the /weird command
 ## crystalOverdose
 End Crystals now explode when damaged from explosions. End Crystal chaining
 * Type: `boolean`  
-* Default value: `false`  
+* Default value: `false`
 * Required options: `true`,`false`  
 * Categories: `WEIRD`,`BUGFIX`
 * Additional notes:
