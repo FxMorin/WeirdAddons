@@ -2,7 +2,6 @@ package weirdaddons.mixins;
 
 import net.minecraft.block.*;
 import net.minecraft.server.world.ChunkHolder;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -11,27 +10,20 @@ import net.minecraft.world.chunk.ChunkManager;
 import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import weirdaddons.WeirdAddonsSettings;
-import weirdaddons.WeirdAddonsUtils;
-
-import java.util.Random;
 
 @Mixin(RedstoneLampBlock.class)
 class RedstoneLampBlockMixin extends Block {
 
     @Shadow public static BooleanProperty LIT;
 
-    public RedstoneLampBlockMixin(Settings settings) {
-        super(settings);
-    }
+    public RedstoneLampBlockMixin(Settings settings) { super(settings); }
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (moved && (WeirdAddonsSettings.instantFallMechanic || WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.FALSE) && state.get(LIT)) {
+        if (moved && (WeirdAddonsSettings.instantFallMechanic || WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.FALSE) && state.get(LIT)) {
             boolean successInstantFall = WeirdAddonsSettings.instantFallMechanic;
-            boolean successInstantTile = WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.FALSE;
+            boolean successInstantTile = WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.FALSE;
             ChunkPos cpos = new ChunkPos(pos);
             ChunkManager chunkManager = world.getChunkManager();
             for (int x = cpos.x - 1; x <= cpos.x + 1; x++) {
@@ -60,15 +52,13 @@ class RedstoneLampBlockMixin extends Block {
                         }
                     }
                 }
-                if (!successInstantFall && !successInstantTile) {
-                    break;
-                }
+                if (!successInstantFall && !successInstantTile) { break; }
             }
             if (successInstantFall) {
                 WeirdAddonsSettings.instantFall = true;
             } else if (successInstantTile) {
                 WeirdAddonsSettings.instantTileTick = true;
-                if (WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLA || WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) {
+                if (WeirdAddonsSettings.instantTileTickMechanic == WeirdAddonsSettings.InstantTileTickEnum.VANILLA || WeirdAddonsSettings.instantTileTickMechanic == WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) {
                     WeirdAddonsSettings.instantLiquidFlow = true;
                 }
             }

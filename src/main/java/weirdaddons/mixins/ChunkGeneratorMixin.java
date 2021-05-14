@@ -18,12 +18,12 @@ public abstract class ChunkGeneratorMixin {
         if (WeirdAddonsSettings.instantFallMechanic && WeirdAddonsSettings.instantFall) {
             WeirdAddonsSettings.instantFall = false;
         }
-        if (WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.FALSE && WeirdAddonsSettings.instantTileTick) {
+        if (WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.FALSE && WeirdAddonsSettings.instantTileTick) {
             WeirdAddonsSettings.instantTileTick = false;
-            if (WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLA || WeirdAddonsSettings.instantTileTickMechanicNum == WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) {
+            if (WeirdAddonsSettings.instantTileTickMechanic == WeirdAddonsSettings.InstantTileTickEnum.VANILLA || WeirdAddonsSettings.instantTileTickMechanic == WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) {
                 WeirdAddonsSettings.instantLiquidFlow = false;
             }
-            if (WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.CRASHFIX && WeirdAddonsSettings.instantTileTickMechanicNum != WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) { //If crashFix is not on
+            if (WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.CRASHFIX && WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) { //If crashFix is not on
                 throw new StackOverflowError();
             } else {
                 Messenger.print_server_message(region.toServerWorld().getServer(), "InstantTileTick caused a server crash from region: "+region.toString()+" - Region Center Chunk: ["+region.getCenterChunkX()+","+region.getCenterChunkZ()+"]");

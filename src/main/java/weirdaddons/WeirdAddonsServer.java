@@ -2,24 +2,45 @@ package weirdaddons;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
 
 public class WeirdAddonsServer implements CarpetExtension, ModInitializer
 {
-    public static void noop() {}
+    public static boolean isCarpetExtraLoaded = false;
 
-    static {
+    @Override
+    public String version()
+    {
+        return "weirdaddons";
+    }
+
+    @Override
+    public void onInitialize() {
         CarpetServer.manageExtension(new WeirdAddonsServer());
     }
 
     @Override
-    public void onGameStarted() { CarpetServer.settingsManager.parseSettingsClass(WeirdAddonsSettings.class); }
+    public void onGameStarted() {
+        CarpetServer.settingsManager.parseSettingsClass(WeirdAddonsSettings.class);
+    }
+
+    @Override
+    public void onServerLoadedWorlds(MinecraftServer minecraftServer){
+        if (FabricLoader.getInstance().isModLoaded("carpet-extra")) {
+            for (CarpetExtension e : CarpetServer.extensions) {
+                if (e.version().equals("carpet-extra")) {
+                    //Check if carpetExtra is loaded so we can use its rules
+                    isCarpetExtraLoaded = true;
+                    break;
+                }
+            }
+        }
+    }
 
     @Override
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
@@ -33,7 +54,4 @@ public class WeirdAddonsServer implements CarpetExtension, ModInitializer
             WeirdAddonsUtils.updateDisplayingChunks(server);
         }
     }
-
-    @Override
-    public void onInitialize() {}
 }

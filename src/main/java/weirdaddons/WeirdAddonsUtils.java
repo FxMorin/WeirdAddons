@@ -22,9 +22,8 @@ public class WeirdAddonsUtils {
     }
 
     public static void updateDisplayingChunks(MinecraftServer server) {
-        ChunkPos chunkPos = new ChunkPos(WeirdAddonsSettings.chunkPos.x, WeirdAddonsSettings.chunkPos.z);
         for (UUID player : playersWatching) {
-            sendToPlayer(player, DisplayChunks(WeirdAddonsSettings.chunkWorld, chunkPos, WeirdAddonsSettings.chunkRadius, player));
+            sendToPlayer(player, DisplayChunks(WeirdAddonsSettings.chunkWorld, WeirdAddonsSettings.chunkPos, WeirdAddonsSettings.chunkRadius, player));
         }
     }
 

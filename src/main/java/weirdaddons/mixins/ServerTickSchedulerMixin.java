@@ -1,6 +1,5 @@
 package weirdaddons.mixins;
 
-import com.google.common.collect.Sets;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerTickScheduler;
 import net.minecraft.server.world.ServerWorld;
@@ -23,7 +22,7 @@ import java.util.function.Predicate;
 @Mixin(ServerTickScheduler.class)
 public class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
 
-    @Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions = Sets.newHashSet();
+    @Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
     @Shadow @Final protected Predicate<T> invalidObjPredicate;
     @Shadow @Final private ServerWorld world;
 

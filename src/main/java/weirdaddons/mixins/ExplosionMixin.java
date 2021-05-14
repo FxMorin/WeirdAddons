@@ -10,7 +10,6 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -61,9 +60,9 @@ public class ExplosionMixin {
                 for(k = 0; k < 16; ++k) {
                     for(l = 0; l < 16; ++l) {
                         if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
-                            double d = (double)((float)j / 15.0F * 2.0F - 1.0F);
-                            double z = (double)((float)k / 15.0F * 2.0F - 1.0F);
-                            double f = (double)((float)l / 15.0F * 2.0F - 1.0F);
+                            double d = ((float)j / 15.0F * 2.0F - 1.0F);
+                            double z = ((float)k / 15.0F * 2.0F - 1.0F);
+                            double f = ((float)l / 15.0F * 2.0F - 1.0F);
                             double g = Math.sqrt(d * d + z * z + f * f);
                             d /= g;
                             z /= g;
@@ -82,7 +81,7 @@ public class ExplosionMixin {
                                 FluidState fluidState = this.world.getFluidState(blockPos);
                                 Optional<Float> optional = this.behavior.getBlastResistance(null, this.world, blockPos, blockState, fluidState);
                                 if (optional.isPresent()) {
-                                    h -= ((Float)optional.get() + 0.3F) * 0.3F;
+                                    h -= (optional.get() + 0.3F) * 0.3F;
                                 }
                                 if (h > 0.0F && this.behavior.canDestroyBlock(null, this.world, blockPos, blockState, h)) {
                                     set.add(blockPos);
@@ -108,17 +107,17 @@ public class ExplosionMixin {
             int u = MathHelper.floor(this.y + (double)q + 1.0D);
             int v = MathHelper.floor(this.z - (double)q - 1.0D);
             int w = MathHelper.floor(this.z + (double)q + 1.0D);
-            List<Entity> list = this.world.getOtherEntities(this.entity, new Box((double)k, (double)t, (double)v, (double)l, (double)u, (double)w));
+            List<Entity> list = this.world.getOtherEntities(this.entity, new Box(k, t, v, l, u, w));
             Vec3d vec3d = new Vec3d(this.x, this.y, this.z);
             for(int x = 0; x < list.size(); ++x) {
-                Entity entity = (Entity)list.get(x);
+                Entity entity = list.get(x);
                 if (!entity.isImmuneToExplosion()) {
-                    double y = (double)(MathHelper.sqrt(entity.squaredDistanceTo(vec3d)) / q);
+                    double y = MathHelper.sqrt(entity.squaredDistanceTo(vec3d)) / q;
                     if (y <= 1.0D) {
                         double z = entity.getX() - this.x;
                         double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - this.y;
                         double ab = entity.getZ() - this.z;
-                        double ac = (double)MathHelper.sqrt(z * z + aa * aa + ab * ab);
+                        double ac = MathHelper.sqrt(z * z + aa * aa + ab * ab);
                         if (ac != 0.0D) {
                             z /= ac;
                             aa /= ac;

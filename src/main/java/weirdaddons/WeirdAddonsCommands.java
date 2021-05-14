@@ -1,10 +1,13 @@
 package weirdaddons;
 
 import carpet.CarpetServer;
+import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.command.argument.ColumnPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.ColumnPos;
 
 import java.util.UUID;
 
@@ -13,11 +16,8 @@ import static net.minecraft.server.command.CommandManager.argument;
 
 public class WeirdAddonsCommands {
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {   // This is totally not sketch or anything. Totally didn't just throw this together within a couple minutes...
-        dispatcher.register(literal("weird").requires((serverCommandSource) -> {
-                    return !CarpetServer.minecraft_server.isDedicated() || serverCommandSource.hasPermissionLevel(2);
-                }).
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) { // This is totally not sketch or anything. Totally didn't just throw this together within a couple minutes...
+        dispatcher.register(literal("weird").requires((player) -> SettingsManager.canUseCommand(player, WeirdAddonsSettings.commandWeird)).
                 then(literal("chunk").
                         then(literal("watch").
                                 executes((c)-> {
@@ -35,7 +35,8 @@ public class WeirdAddonsCommands {
                         then(literal("set").
                             then(argument("chunk", ColumnPosArgumentType.columnPos()).
                                 executes((c)-> {
-                                    WeirdAddonsSettings.chunkPos = ColumnPosArgumentType.getColumnPos(c, "chunk");
+                                    ColumnPos columnPos = ColumnPosArgumentType.getColumnPos(c, "chunk");
+                                    WeirdAddonsSettings.chunkPos = new ChunkPos(columnPos.x,columnPos.z);
                                     WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(),"Targeted chunk set to: "+WeirdAddonsSettings.chunkPos);
                                     return 1;
                                 }))).

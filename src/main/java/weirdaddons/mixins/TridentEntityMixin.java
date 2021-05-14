@@ -1,6 +1,5 @@
 package weirdaddons.mixins;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.TrackedData;
@@ -13,16 +12,12 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import weirdaddons.WeirdAddonsSettings;
 
 @Mixin(TridentEntity.class)
 public class TridentEntityMixin extends PersistentProjectileEntity {
 
     @Shadow @Final private static TrackedData<Byte> LOYALTY;
-    @Shadow @Final private static TrackedData<Boolean> ENCHANTED;
-    @Shadow private ItemStack tridentStack;
     @Shadow private boolean dealtDamage;
     @Shadow public int returnTimer;
 
@@ -38,10 +33,9 @@ public class TridentEntityMixin extends PersistentProjectileEntity {
         if (this.inGroundTime > 4) {
             this.dealtDamage = true;
         }
-
         Entity entity = this.getOwner();
         if ((this.dealtDamage || this.isNoClip()) && entity != null) {
-            int i = (Byte)this.dataTracker.get(LOYALTY);
+            int i = this.dataTracker.get(LOYALTY);
             if (i > 0 && !this.isOwnerAlive()) {
                 if (!this.world.isClient && this.pickupType == PersistentProjectileEntity.PickupPermission.ALLOWED) {
                     this.dropStack(this.asItemStack(), 0.1F);
@@ -63,11 +57,9 @@ public class TridentEntityMixin extends PersistentProjectileEntity {
                 if (this.returnTimer == 0) {
                     this.playSound(SoundEvents.ITEM_TRIDENT_RETURN, 10.0F, 1.0F);
                 }
-
                 ++this.returnTimer;
             }
         }
-
         super.tick();
     }
 }

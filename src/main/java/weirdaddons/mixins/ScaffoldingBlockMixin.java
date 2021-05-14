@@ -18,7 +18,7 @@ import weirdaddons.WeirdAddonsSettings;
 import java.util.Random;
 
 @Mixin(ScaffoldingBlock.class)
-class ScaffoldingBlockMixin extends Block{
+class ScaffoldingBlockMixin extends Block {
 
     @Shadow public static final BooleanProperty WATERLOGGED;
 
@@ -30,16 +30,12 @@ class ScaffoldingBlockMixin extends Block{
         super(settings);
     }
 
-
-    @Redirect(method = "scheduledTick", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/server/world/ServerWorld;breakBlock(Lnet/minecraft/util/math/BlockPos;Z)Z"
-    ))
+    @Redirect(method = "scheduledTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;breakBlock(Lnet/minecraft/util/math/BlockPos;Z)Z"))
     public boolean ScaffoldingBreaking(ServerWorld serverWorld, BlockPos pos, boolean drop) {
         if (WeirdAddonsSettings.scaffoldingBreaking.equals("float")) {
             return true;
         } else if (WeirdAddonsSettings.scaffoldingBreaking.equals("gravity")) {
-            return serverWorld.spawnEntity(new FallingBlockEntity(serverWorld, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D,serverWorld.getBlockState(pos).with(WATERLOGGED, false)));
+            return serverWorld.spawnEntity(new FallingBlockEntity(serverWorld, (double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D,serverWorld.getBlockState(pos).with(WATERLOGGED, false)));
         } else {
             return serverWorld.breakBlock(pos, true);
         }
