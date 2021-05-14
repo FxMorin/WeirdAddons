@@ -30,6 +30,6 @@
   "depends": {
     "minecraft": "1.16.x",
     "fabricloader": ">=0.10.0",
-    "carpet": "*"
+    "carpet": ">=1.4.26"
   }
 }
