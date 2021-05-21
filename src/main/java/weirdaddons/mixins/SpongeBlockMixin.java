@@ -71,10 +71,10 @@ public class SpongeBlockMixin extends Block {
     @Redirect(method = "update(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
     protected boolean spongeCeption(World world, BlockPos pos, BlockState state, int flags) {
         if (WeirdAddonsSettings.spongeCeption) {
-            return world.setBlockState(pos, Blocks.AIR.getDefaultState(), WeirdAddonsSettings.spongeUpdate ? 3 : 2);
+            return world.setBlockState(pos, Blocks.AIR.getDefaultState(), flags);
         } else if (WeirdAddonsSettings.spongeReusable) {
             return true;
         }
-        return world.setBlockState(pos, Blocks.WET_SPONGE.getDefaultState(), WeirdAddonsSettings.spongeUpdate ? 3 : 2);
+        return world.setBlockState(pos, Blocks.WET_SPONGE.getDefaultState(), flags);
     }
 }

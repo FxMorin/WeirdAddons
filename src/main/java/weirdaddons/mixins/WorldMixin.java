@@ -9,7 +9,7 @@ import weirdaddons.WeirdAddonsSettings;
 @Mixin(World.class)
 public class WorldMixin {
 
-    @ModifyArg(method = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z"), index = 2)
+    @ModifyArg(method = "setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;II)Z"), index = 2)
     private int adjustFlags(int flags) {
         return (WeirdAddonsSettings.blockUpdateHell > -2) ? WeirdAddonsSettings.blockUpdateHell : flags;
     }

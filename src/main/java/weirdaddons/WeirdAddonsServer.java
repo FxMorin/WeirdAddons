@@ -31,20 +31,17 @@ public class WeirdAddonsServer implements CarpetExtension, ModInitializer
 
     @Override
     public void onServerLoadedWorlds(MinecraftServer minecraftServer){
-        if (FabricLoader.getInstance().isModLoaded("carpet-extra")) {
-            for (CarpetExtension e : CarpetServer.extensions) {
-                if (e.version().equals("carpet-extra")) {
-                    //Check if carpetExtra is loaded so we can use its rules
-                    isCarpetExtraLoaded = true;
-                    break;
-                }
+        for (CarpetExtension e : CarpetServer.extensions) {
+            if (e.version().equals("carpet-extra")) {
+                //Check if carpetExtra is loaded so we can use its rules
+                isCarpetExtraLoaded = true;
+                break;
             }
         }
     }
 
     @Override
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
         WeirdAddonsCommands.register(dispatcher);
     }
 

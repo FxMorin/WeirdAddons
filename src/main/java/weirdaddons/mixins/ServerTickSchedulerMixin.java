@@ -38,7 +38,7 @@ public class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
         }
     }
 
-    @Redirect(method = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V", at = @At(
+    @Redirect(method = "tick()V", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/world/ServerWorld;getTime()J"
     ))
@@ -46,7 +46,7 @@ public class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
         return ((WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks)) ? Integer.MAX_VALUE : world.getTime();
     }
 
-    @Redirect(method = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V", at = @At(
+    @Redirect(method = "tick()V", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/world/ServerChunkManager;shouldTickBlock(Lnet/minecraft/util/math/BlockPos;)Z"
     ))
@@ -54,7 +54,7 @@ public class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
         return (WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks) || serverChunkManager.shouldTickBlock(pos);
     }
 
-    @Inject(method = "Lnet/minecraft/server/world/ServerTickScheduler;tick()V", at = @At(
+    @Inject(method = "tick()V", at = @At(
             value = "RETURN"))
     public void InjectIntoTick(CallbackInfo ci) {
         if (((WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks)) && this.scheduledTickActions.size() != 0) {

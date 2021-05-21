@@ -39,7 +39,7 @@ public abstract class PistonBlockEntityMixin extends BlockEntity {
         }
     }
 
-    @Inject(method = "Lnet/minecraft/block/entity/PistonBlockEntity;tick()V", at = @At("INVOKE"))
+    @Inject(method = "tick()V", at = @At("INVOKE"))
     private void progressDone(CallbackInfo ci) {
         if (WeirdAddonsSettings.fastPistons){
             this.progress = 1.0f;

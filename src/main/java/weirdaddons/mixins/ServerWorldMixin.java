@@ -10,7 +10,7 @@ import weirdaddons.WeirdAddonsSettings;
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
 
-    @Inject(method = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V", at = @At("HEAD"))
+    @Inject(method = "tick(Ljava/util/function/BooleanSupplier;)V", at = @At("HEAD"))
     public void BeforeBlockTicks(CallbackInfo ci) {
         WeirdAddonsSettings.insideBlockTicks = true;
     }

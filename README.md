@@ -10,15 +10,6 @@ Simple toggle for the /weird command
 * Categories: `WEIRD`
 * Additional notes:
     * The /weird command allows for chunk monitoring as well as other weird additions that need more arguments then a carpet rule
-    
-## crystalOverdose
-End Crystals now explode when damaged from explosions. End Crystal chaining
-* Type: `boolean`  
-* Default value: `false`
-* Required options: `true`,`false`  
-* Categories: `WEIRD`,`BUGFIX`
-* Additional notes:
-  * Fixes Bug [MC-118429]
   
 ## observerDelay
 Change the delay length of observers (how long it takes to turn on)
@@ -53,15 +44,6 @@ Basically all setBlock calls will use this number
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 * Additional notes:
   * Custom block updates from: -1 to 127 | use -2 to disable
-
-## spongeUpdate
-Makes it so that sponges give block updates when absorbing water.
-* Type: `boolean`  
-* Default value: `false`  
-* Required options: `true`,`false` 
-* Categories: `WEIRD`,`BUGFIX`
-* Additional notes:
-    * Fixes Bug [MC-220636]
 
 ## spongeEverything
 Makes it so that sponges can absorb all blocks
@@ -258,13 +240,6 @@ Allow's players with invalid sessions to join the server, a lot like onlineMode
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
-
-## chunkRegenFix
-Fixes Chunk Regen due to StringTag writeUTF() not respecting readUTF() Limits
-* Type: `boolean`
-* Default value: `false`
-* Required options: `false`,`true`
-* Categories: `WEIRD`,`BUGFIX`
 
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks

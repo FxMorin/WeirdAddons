@@ -55,13 +55,6 @@ public class WeirdAddonsSettings
     public static String commandWeird = "ops";
 
     @Rule(
-            desc = "End Crystals now explode when damaged from explosions. End Crystal chaining",
-            extra = "Fixes Bug [MC-118429]",
-            category = {WEIRD,BUGFIX}
-    )
-    public static boolean crystalOverdose = false;
-
-    @Rule(
             desc = "Change the delay length of observers (how long it takes to turn on)",
             validate = Validator.NONNEGATIVE_NUMBER.class,
             strict = false,
@@ -98,13 +91,6 @@ public class WeirdAddonsSettings
             category = {WEIRD,CREATIVE,EXPERIMENTAL}
     )
     public static int blockUpdateHell = -2;
-
-    @Rule(
-            desc = "Makes it so that sponges give block updates when absorbing water",
-            extra = "Fixes Bug [MC-220636]",
-            category = {WEIRD,BUGFIX}
-    )
-    public static boolean spongeUpdate = false;
 
     @Rule(
             desc = "Makes it so that sponges can absorb all blocks :}",
@@ -286,12 +272,6 @@ public class WeirdAddonsSettings
             category = {CREATIVE, WEIRD, EXPERIMENTAL}
     )
     public static String zeroTickGeneratorBlock = "false";*/
-
-    @Rule(
-            desc = "Fixes Chunk Regen due to StringTag writeUTF() not respecting readUTF() Limits",
-            category = {WEIRD,BUGFIX}
-    )
-    public static boolean chunkRegenFix = false;
 
     /*
 

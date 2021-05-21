@@ -24,7 +24,7 @@ public class ObserverBlockMixin extends FacingBlock {
 
     @Shadow protected void updateNeighbors(World world, BlockPos pos, BlockState state) {}
 
-    @ModifyArg(method = "Lnet/minecraft/block/ObserverBlock;scheduleTick(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"), index = 2)
+    @ModifyArg(method = "scheduleTick(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"), index = 2)
     private int adjustDelay(int delay) {
         return WeirdAddonsSettings.observerDelay;
     }
