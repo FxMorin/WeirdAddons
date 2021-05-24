@@ -1,6 +1,8 @@
 # WeirdAddons
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension mod which adds a bunch of interesting but weird new features.
 
+Join my discord for more information, updates, and discussion on the mod [FX's Discord](https://discord.gg/vurv5pdFpa)
+
 # Features
 ## commandWeird
 Simple toggle for the /weird command
