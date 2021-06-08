@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import weirdaddons.WeirdAddonsServer;
 import weirdaddons.WeirdAddonsSettings;
 
+
 import java.util.Random;
 
 @Mixin(FallingBlock.class)
@@ -19,7 +20,6 @@ public class FallingBlockMixin extends Block {
     public FallingBlockMixin(Settings settings) {
         super(settings);
     }
-
     @Shadow public static boolean canFallThrough(BlockState state){
         return true;
     }

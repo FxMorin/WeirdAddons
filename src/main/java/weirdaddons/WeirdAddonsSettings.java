@@ -63,6 +63,14 @@ public class WeirdAddonsSettings
     public static int observerDelay = 2;
 
     @Rule(
+            desc = "Allows the use of spigot formatting inside of anvils",
+            extra = "To see formatting codes use /weird color",
+            category = {WEIRD,EXPERIMENTAL}
+    )
+    public static boolean anvilColorFormatting = false;
+
+
+    @Rule(
             desc = "Change the pulse length of observers (how long it stays on)",
             validate = Validator.NONNEGATIVE_NUMBER.class,
             strict = false,
@@ -265,8 +273,8 @@ public class WeirdAddonsSettings
     public static boolean allowUnauthenticatedPlayers = false;
 
     /*@Rule(
-            desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
-            extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
+            desc = "tor",
+            extra = {"If a number is entered, it will be the delay in ticks between pulses"Placing a redstone on top of redstone ore will act as a zero tick genera,"Enabling this will cause all redstone ore blocks to be transparent"},
             options = {"false","true","1"},
             validate = zeroTickGeneratorValidator.class,
             category = {CREATIVE, WEIRD, EXPERIMENTAL}
