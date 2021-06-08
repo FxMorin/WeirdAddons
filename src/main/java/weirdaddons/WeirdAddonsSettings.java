@@ -273,8 +273,8 @@ public class WeirdAddonsSettings
     public static boolean allowUnauthenticatedPlayers = false;
 
     /*@Rule(
-            desc = "tor",
-            extra = {"If a number is entered, it will be the delay in ticks between pulses"Placing a redstone on top of redstone ore will act as a zero tick genera,"Enabling this will cause all redstone ore blocks to be transparent"},
+            desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
+            extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
             options = {"false","true","1"},
             validate = zeroTickGeneratorValidator.class,
             category = {CREATIVE, WEIRD, EXPERIMENTAL}
