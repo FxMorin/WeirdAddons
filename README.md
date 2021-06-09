@@ -270,6 +270,8 @@ Allows the use of spigot formatting inside of anvils
    - radius - Sets the amount of chunks that should be watched next to it
    - start - Starts displaying the chunks
    - stop - Stops displaying the chunks
+`/weird color`
+ - color - Shows a color table to use with anvilColorFormatting
 
 
 
