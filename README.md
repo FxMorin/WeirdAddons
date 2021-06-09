@@ -243,6 +243,13 @@ Allow's players with invalid sessions to join the server, a lot like onlineMode
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
+## anvilColorFormatting
+Allows the use of spigot formatting inside of anvils
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
 - `#000000` [Black] Null Chunks
