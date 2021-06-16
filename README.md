@@ -250,6 +250,20 @@ Allows the use of spigot formatting inside of anvils
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`EXPERIMENTAL`
 
+## breakableDragonEgg
+Allows the dragon egg to be mined
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
+## dragonAlwaysDropsEgg
+Ender Dragon always drops a dragon egg when killed
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
 - `#000000` [Black] Null Chunks
@@ -270,7 +284,5 @@ Allows the use of spigot formatting inside of anvils
    - radius - Sets the amount of chunks that should be watched next to it
    - start - Starts displaying the chunks
    - stop - Stops displaying the chunks
-
-
-
-
+`/weird color`
+ - color - Shows a color table to use with anvilColorFormatting
