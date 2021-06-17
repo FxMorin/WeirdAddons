@@ -28,8 +28,8 @@ public class PistonBlockMixin {
 
     @Inject(method = "isMovable", at = @At( value = "INVOKE", target ="Lnet/minecraft/block/BlockState;getHardness(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)F"), cancellable = true)
     private static void movingPistonIsHard(BlockState blockState, World world, BlockPos blockPos, Direction direction, boolean canBreak, Direction pistonDir, CallbackInfoReturnable<Boolean> cir) {
-        boolean valid = true;
         if (WeirdAddonsSettings.movableMovingPiston && blockState.isOf(Blocks.MOVING_PISTON)) {
+            boolean valid = true;
             if (direction == pistonDir && direction == blockState.get(Properties.FACING)) {
                 BlockEntity be = world.getBlockEntity(blockPos);
                 if (be instanceof PistonBlockEntity) {

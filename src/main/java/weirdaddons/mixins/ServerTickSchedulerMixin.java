@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 @Mixin(ServerTickScheduler.class)
-public class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
+public abstract class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
 
     @Shadow @Final private Set<ScheduledTick<T>> scheduledTickActions;
     @Shadow @Final protected Predicate<T> invalidObjPredicate;
@@ -44,14 +44,6 @@ public class ServerTickSchedulerMixin<T> implements TickScheduler<T> {
     ))
     public long CaptainAreYouSureAboutThis(ServerWorld serverWorld) {
         return ((WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks)) ? Integer.MAX_VALUE : world.getTime();
-    }
-
-    @Redirect(method = "tick()V", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/server/world/ServerChunkManager;shouldTickBlock(Lnet/minecraft/util/math/BlockPos;)Z"
-    ))
-    public boolean OfCourseYouCanTickThatBlock(ServerChunkManager serverChunkManager, BlockPos pos) {
-        return (WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks) || serverChunkManager.shouldTickBlock(pos);
     }
 
     @Inject(method = "tick()V", at = @At(

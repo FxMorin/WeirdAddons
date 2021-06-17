@@ -8,6 +8,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkManager;
 import net.minecraft.world.chunk.WorldChunk;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import weirdaddons.WeirdAddonsSettings;
@@ -15,7 +16,7 @@ import weirdaddons.WeirdAddonsSettings;
 @Mixin(RedstoneLampBlock.class)
 class RedstoneLampBlockMixin extends Block {
 
-    @Shadow public static BooleanProperty LIT;
+    @Final @Shadow public static BooleanProperty LIT;
 
     public RedstoneLampBlockMixin(Settings settings) { super(settings); }
 
@@ -63,7 +64,7 @@ class RedstoneLampBlockMixin extends Block {
                 }
             }
         }
-        if (this.hasBlockEntity() && !state.isOf(newState.getBlock())) {
+        if (state.hasBlockEntity() && !state.isOf(newState.getBlock())) {
             world.removeBlockEntity(pos);
         }
     }

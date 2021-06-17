@@ -1,20 +1,21 @@
 package weirdaddons;
 
+import carpet.CarpetServer;
 import carpet.CarpetSettings;
+import carpet.network.CarpetClient;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
 import carpet.utils.Messenger;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 
 import static carpet.settings.RuleCategory.CREATIVE;
-import static carpet.settings.RuleCategory.BUGFIX;
 import static carpet.settings.RuleCategory.EXPERIMENTAL;
 
-public class WeirdAddonsSettings
-{
+public class WeirdAddonsSettings {
     public static boolean insideBlockTicks = false;
     public static boolean isDisplayingChunk = false;
     public static ChunkPos chunkPos;
@@ -75,6 +76,7 @@ public class WeirdAddonsSettings
             category = {WEIRD,CREATIVE}
     )
     public static boolean fastPistons = false;
+
 
     @Rule(
             desc = "Makes moving_piston (B36) movable. Requires MovableBlockEntities to be on",
@@ -248,7 +250,13 @@ public class WeirdAddonsSettings
             desc = "Everything works the same past the world border",
             category = {WEIRD,CREATIVE,EXPERIMENTAL}
     )
-    public static boolean worldborderNotSpecial = false;
+    public static boolean worldborderSpecial = false;
+
+    @Rule(
+            desc = "Makes it so that cats on chests do not prevent the chest from opening",
+            category = {WEIRD}
+    )
+    public static boolean catOnChestBypass = false;
 
     @Rule(
             desc = "Elytra won't take damage from flight",
@@ -258,11 +266,11 @@ public class WeirdAddonsSettings
     public static boolean totallyLegitElytra = false;
 
     @Rule(
-            desc = "Allow's players with invalid sessions to join the server, a lot like onlineMode",
-            extra = {"Warning, this does not stop whitelist from working but anyone could just tell the server they are a whitelisted member. Use with caution!","This is a development tool cause PR0CESS is lazy af","onlineMode=false but much worse"},
+            desc = "Allows you to toggle onlineMode",
+            validate = onlineModeValidator.class,
             category = {WEIRD,CREATIVE,EXPERIMENTAL}
     )
-    public static boolean allowUnauthenticatedPlayers = false;
+    public static boolean onlineMode = CarpetServer.minecraft_server == null || CarpetServer.minecraft_server.isOnlineMode();
 
     /*@Rule(
             desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
@@ -285,6 +293,13 @@ public class WeirdAddonsSettings
         }
         @Override
         public String description() { return "MovableBlockEntities must be enabled to use this";}
+    }
+
+    private static class onlineModeValidator extends Validator<Boolean> {
+        @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
+            source.getMinecraftServer().setOnlineMode(currentRule.getBoolValue());
+            return currentRule.getBoolValue();
+        }
     }
 
     /*private static class zeroTickGeneratorValidator extends Validator<String> {

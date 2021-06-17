@@ -26,7 +26,7 @@ public abstract class ChunkGeneratorMixin {
             if (WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.CRASHFIX && WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) { //If crashFix is not on
                 throw new StackOverflowError();
             } else {
-                Messenger.print_server_message(region.toServerWorld().getServer(), "InstantTileTick caused a server crash from region: "+region.toString()+" - Region Center Chunk: ["+region.getCenterChunkX()+","+region.getCenterChunkZ()+"]");
+                Messenger.print_server_message(region.toServerWorld().getServer(), "InstantTileTick caused a server crash from region: "+region.toString()+" - Region Center Pos: "+region.getCenterPos());
             }
         }
     }

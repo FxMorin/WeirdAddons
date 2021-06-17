@@ -2,7 +2,6 @@ package weirdaddons.mixins;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Final;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import weirdaddons.WeirdAddonsSettings;
 
 @Mixin(AbstractBlock.AbstractBlockState.class)
-public class AbstractBlockStateMixin {
+public abstract class AbstractBlockStateMixin {
 
     @Shadow @Final private AbstractBlock.ContextPredicate solidBlockPredicate;
     @Shadow protected BlockState asBlockState() { return null; }

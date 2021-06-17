@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
 
-    @Redirect(method = "initAi()V", at = @At(
+    @Redirect(method = "tickFallFlying()V", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Ljava/util/function/Consumer;)V"
     ))

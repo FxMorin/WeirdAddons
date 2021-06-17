@@ -17,8 +17,8 @@ import weirdaddons.WeirdAddonsSettings;
 @Mixin(ServerPlayerInteractionManager.class)
 public class ServerPlayerInteractionManagerMixin {
 
-    @Shadow public ServerWorld world;
-    @Shadow public ServerPlayerEntity player;
+    @Shadow protected ServerWorld world;
+    @Shadow protected ServerPlayerEntity player;
 
     @Inject(method = "processBlockBreakingAction(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/network/packet/c2s/play/PlayerActionC2SPacket$Action;Lnet/minecraft/util/math/Direction;I)V", at = @At("HEAD"), cancellable = true)
     public void SuppressBreakingPacket(BlockPos pos, PlayerActionC2SPacket.Action action, Direction direction, int worldHeight, CallbackInfo ci) {

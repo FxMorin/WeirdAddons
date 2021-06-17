@@ -4,9 +4,9 @@ import net.minecraft.block.*;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,11 +20,7 @@ import java.util.Random;
 @Mixin(ScaffoldingBlock.class)
 class ScaffoldingBlockMixin extends Block {
 
-    @Shadow public static final BooleanProperty WATERLOGGED;
-
-    static {
-        WATERLOGGED = Properties.WATERLOGGED;
-    }
+    @Final @Shadow public static BooleanProperty WATERLOGGED;
 
     public ScaffoldingBlockMixin(Settings settings) {
         super(settings);

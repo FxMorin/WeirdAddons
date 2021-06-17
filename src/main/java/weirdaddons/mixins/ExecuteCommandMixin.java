@@ -9,7 +9,7 @@ import weirdaddons.WeirdAddonsSettings;
 @Mixin(ExecuteCommand.class)
 public class ExecuteCommandMixin {
 
-    @ModifyConstant(method = "Lnet/minecraft/server/command/ExecuteCommand;testBlocksCondition(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;Z)Ljava/util/OptionalInt;", constant = @Constant(intValue = 32768))
+    @ModifyConstant(method = "testBlocksCondition(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;Z)Ljava/util/OptionalInt;", constant = @Constant(intValue = 32768))
     private static int muchLarger(int maxSize) {
         return WeirdAddonsSettings.executeBlockLimit;
     }

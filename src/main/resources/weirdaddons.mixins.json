@@ -1,11 +1,13 @@
 {
   "required": true,
   "package": "weirdaddons.mixins",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AbstractBlockStateMixin",
+    "ChestBlockMixin",
     "ChunkGeneratorMixin",
     "EnchantCommandMixin",
+    "ExecuteCommandMixin",
     "ExplosionMixin",
     "FallingBlockMixin",
     "LivingEntityMixin",
@@ -14,7 +16,6 @@
     "PistonBlockMixin",
     "RedstoneLampBlockMixin",
     "ScaffoldingBlockMixin",
-    "ServerLoginNetworkHandlerMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerTickSchedulerMixin",
     "ServerWorldMixin",

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
@@ -39,7 +38,7 @@ public class SpongeBlockMixin extends Block {
                 FluidState fluidState = world.getFluidState(blockPos2);
                 Material material = blockState.getMaterial();
                 if (WeirdAddonsSettings.spongeEverything || fluidState.isIn(WeirdAddonsSettings.spongeLava ? FluidTags.LAVA : FluidTags.WATER)) {
-                    if (!WeirdAddonsSettings.spongeEverything && blockState.getBlock() instanceof FluidDrainable && ((FluidDrainable)blockState.getBlock()).tryDrainFluid(world, blockPos2, blockState) != Fluids.EMPTY) {
+                    if (!WeirdAddonsSettings.spongeEverything && blockState.getBlock() instanceof FluidDrainable && !((FluidDrainable)blockState.getBlock()).tryDrainFluid(world, blockPos2, blockState).isEmpty()) {
                         ++i;
                         if (WeirdAddonsSettings.spongeInfinite || j < 6) {
                             queue.add(new Pair(blockPos2, j + 1));
@@ -51,7 +50,7 @@ public class SpongeBlockMixin extends Block {
                             queue.add(new Pair(blockPos2, j + 1));
                         }
                     } else if (material == Material.UNDERWATER_PLANT || material == Material.REPLACEABLE_UNDERWATER_PLANT) {
-                        BlockEntity blockEntity = blockState.getBlock().hasBlockEntity() ? world.getBlockEntity(blockPos2) : null;
+                        BlockEntity blockEntity = blockState.hasBlockEntity() ? world.getBlockEntity(blockPos2) : null;
                         dropStacks(blockState, world, blockPos2, blockEntity);
                         world.setBlockState(blockPos2, Blocks.AIR.getDefaultState(), WeirdAddonsSettings.spongeFaster ? 2 : 3);
                         ++i;

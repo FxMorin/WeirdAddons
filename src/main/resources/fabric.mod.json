@@ -6,7 +6,8 @@
   "name": "Weird Addons",
   "description": "The place where I put all my weird carpet changes, although some are actually really useful",
   "authors": [
-    "PR0CESS"
+    "PR0CESS",
+    "SuperSanta"
   ],
   "contact": {
     "homepage": "https://github.com/fxmorin/WeirdAddons",
@@ -28,8 +29,13 @@
   ],
 
   "depends": {
-    "minecraft": "1.16.x",
-    "fabricloader": ">=0.10.0",
-    "carpet": ">=1.4.26"
+    "minecraft": "1.17.x",
+    "fabricloader": ">=0.11.3",
+    "carpet": ">=1.4.40"
+  },
+  "custom": {
+    "modmenu": {
+      "parent": "carpet"
+    }
   }
 }

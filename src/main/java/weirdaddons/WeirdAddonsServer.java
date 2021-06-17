@@ -2,10 +2,8 @@ package weirdaddons;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 

@@ -1,6 +1,5 @@
 package weirdaddons;
 
-import carpet.CarpetServer;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;

@@ -14,7 +14,7 @@ import java.util.Collection;
 @Mixin(EnchantCommand.class)
 public class EnchantCommandMixin {
 
-    @Redirect(method = "Lnet/minecraft/server/command/EnchantCommand;execute(Lnet/minecraft/server/command/ServerCommandSource;Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;I)I", at = @At(
+    @Redirect(method = "execute(Lnet/minecraft/server/command/ServerCommandSource;Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;I)I", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/enchantment/Enchantment;getMaxLevel()I"
     ))
@@ -22,7 +22,7 @@ public class EnchantCommandMixin {
         return WeirdAddonsSettings.enchantmentOverride ? Integer.MAX_VALUE : enchantment.getMaxLevel();
     }
 
-    @Redirect(method = "Lnet/minecraft/server/command/EnchantCommand;execute(Lnet/minecraft/server/command/ServerCommandSource;Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;I)I", at = @At(
+    @Redirect(method = "execute(Lnet/minecraft/server/command/ServerCommandSource;Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;I)I", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/enchantment/Enchantment;isAcceptableItem(Lnet/minecraft/item/ItemStack;)Z"
     ))
@@ -30,7 +30,7 @@ public class EnchantCommandMixin {
         return WeirdAddonsSettings.enchantmentOverride || enchantment.isAcceptableItem(stack);
     }
 
-    @Redirect(method = "Lnet/minecraft/server/command/EnchantCommand;execute(Lnet/minecraft/server/command/ServerCommandSource;Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;I)I", at = @At(
+    @Redirect(method = "execute(Lnet/minecraft/server/command/ServerCommandSource;Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;I)I", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/enchantment/EnchantmentHelper;isCompatible(Ljava/util/Collection;Lnet/minecraft/enchantment/Enchantment;)Z"
     ))

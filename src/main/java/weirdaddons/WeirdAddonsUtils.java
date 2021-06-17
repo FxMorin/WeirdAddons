@@ -40,14 +40,14 @@ public class WeirdAddonsUtils {
                 if (chunk != null) {
                     boolean isPlayerChunk = false;
                     for (ServerPlayerEntity player : CarpetServer.minecraft_server.getPlayerManager().getPlayerList()) {
-                        if (player != null && player.chunkX == x && player.chunkZ == z) {
+                        if (player != null && player.getChunkPos().x == x && player.getChunkPos().z == z) {
                             isPlayerChunk = true;
                             break;
                         }
                     }
                     if (isPlayerChunk) {
                         ServerPlayerEntity player = CarpetServer.minecraft_server.getPlayerManager().getPlayer(playerUUID);
-                        if (player != null && player.chunkX == x && player.chunkZ == z) {
+                        if (player != null && player.getChunkPos().x == x && player.getChunkPos().z == z) {
                             result.append("§5☻");
                         } else {
                             result.append("§5"+icon);

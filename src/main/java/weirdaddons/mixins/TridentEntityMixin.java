@@ -21,9 +21,7 @@ public class TridentEntityMixin extends PersistentProjectileEntity {
     @Shadow private boolean dealtDamage;
     @Shadow public int returnTimer;
 
-    protected TridentEntityMixin(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
-        super(entityType, world);
-    }
+    protected TridentEntityMixin(EntityType<? extends PersistentProjectileEntity> entityType, World world) { super(entityType, world); }
 
     @Shadow private boolean isOwnerAlive() { return false; }
     @Shadow protected ItemStack asItemStack() { return null; }
@@ -40,7 +38,7 @@ public class TridentEntityMixin extends PersistentProjectileEntity {
                 if (!this.world.isClient && this.pickupType == PersistentProjectileEntity.PickupPermission.ALLOWED) {
                     this.dropStack(this.asItemStack(), 0.1F);
                 }
-                this.remove();
+                this.discard();
             } else if (i > 0) {
                 this.setNoClip(true);
                 Vec3d vec3d = new Vec3d(entity.getX() - this.getX(), entity.getEyeY() - this.getY(), entity.getZ() - this.getZ());

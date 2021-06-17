@@ -15,6 +15,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 import org.jetbrains.annotations.Nullable;
@@ -42,17 +43,16 @@ public class ExplosionMixin {
     @Shadow @Final private double y;
     @Shadow @Final private double z;
     @Shadow @Final private ExplosionBehavior behavior;
-    @Shadow @Final private DamageSource damageSource;
     @Shadow @Final private Map<PlayerEntity, Vec3d> affectedPlayers;
+
+    @Shadow public DamageSource getDamageSource() {return null;}
 
     @Shadow public static float getExposure(Vec3d vec3d, Entity entity) { return 0.0f;}
 
-    @Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"),
-            cancellable = true)
-    private void onSpongeExplosion(CallbackInfo ci)
-    {
-        if (WeirdAddonsSettings.spongeAbsorbsExplosions)
-        {
+    @Inject(method = "collectBlocksAndDamageEntities", at = @At("HEAD"), cancellable = true)
+    private void onSpongeExplosion(CallbackInfo ci) {
+        if (WeirdAddonsSettings.spongeAbsorbsExplosions) {
+            this.world.emitGameEvent(this.entity, GameEvent.EXPLODE, new BlockPos(this.x, this.y, this.z));
             Set<BlockPos> set = Sets.newHashSet();
             boolean spongeAbsorb = false;
             int k, l;
@@ -71,11 +71,14 @@ public class ExplosionMixin {
                             double m = this.x;
                             double n = this.y;
                             double o = this.z;
-                            for(float var21 = 0.3F; h > 0.0F; h -= 0.22500001F) {
+                            for(float q = 0.3F; h > 0.0F; h -= 0.22500001F) {
                                 BlockPos blockPos = new BlockPos(m, n, o);
                                 BlockState blockState = this.world.getBlockState(blockPos);
                                 if (blockState.isOf(Blocks.SPONGE)) {
                                     spongeAbsorb = true;
+                                    break;
+                                }
+                                if (!this.world.isInBuildLimit(blockPos)) {
                                     break;
                                 }
                                 FluidState fluidState = this.world.getFluidState(blockPos);
@@ -97,9 +100,7 @@ public class ExplosionMixin {
                 }
                 if (spongeAbsorb) { break; }
             }
-            if (!spongeAbsorb) {
-                this.affectedBlocks.addAll(set);
-            }
+            if (!spongeAbsorb) { this.affectedBlocks.addAll(set); }
             float q = this.power * 2.0F;
             k = MathHelper.floor(this.x - (double)q - 1.0D);
             l = MathHelper.floor(this.x + (double)q + 1.0D);
@@ -112,19 +113,19 @@ public class ExplosionMixin {
             for(int x = 0; x < list.size(); ++x) {
                 Entity entity = list.get(x);
                 if (!entity.isImmuneToExplosion()) {
-                    double y = MathHelper.sqrt(entity.squaredDistanceTo(vec3d)) / q;
+                    double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / q;
                     if (y <= 1.0D) {
                         double z = entity.getX() - this.x;
                         double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - this.y;
                         double ab = entity.getZ() - this.z;
-                        double ac = MathHelper.sqrt(z * z + aa * aa + ab * ab);
+                        double ac = Math.sqrt(z * z + aa * aa + ab * ab);
                         if (ac != 0.0D) {
                             z /= ac;
                             aa /= ac;
                             ab /= ac;
                             double ad = getExposure(vec3d, entity);
                             double ae = (1.0D - y) * ad;
-                            entity.damage(this.damageSource, (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
+                            entity.damage(this.getDamageSource(), (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
                             double af = ae;
                             if (entity instanceof LivingEntity) {
                                 af = ProtectionEnchantment.transformExplosionKnockback((LivingEntity)entity, ae);
@@ -132,7 +133,7 @@ public class ExplosionMixin {
                             entity.setVelocity(entity.getVelocity().add(z * af, aa * af, ab * af));
                             if (entity instanceof PlayerEntity) {
                                 PlayerEntity playerEntity = (PlayerEntity)entity;
-                                if (!playerEntity.isSpectator() && (!playerEntity.isCreative() || !playerEntity.abilities.flying)) {
+                                if (!playerEntity.isSpectator() && (!playerEntity.isCreative() || !playerEntity.getAbilities().flying)) {
                                     this.affectedPlayers.put(playerEntity, new Vec3d(z * ae, aa * ae, ab * ae));
                                 }
                             }

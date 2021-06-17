@@ -16,6 +16,7 @@ import java.util.Random;
 
 @Mixin(FallingBlock.class)
 public class FallingBlockMixin extends Block {
+
     public FallingBlockMixin(Settings settings) {
         super(settings);
     }

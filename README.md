@@ -225,6 +225,13 @@ Everything works the same past the world border
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
+## catOnChestBypass
+Cats sitting on chests won't prevent you from using the chest
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`
+
 ## totallyLegitElytra
 Elytra won't take damage from flight
 * Type: `boolean`
