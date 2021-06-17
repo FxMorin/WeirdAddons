@@ -1,6 +1,8 @@
 # WeirdAddons
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension mod which adds a bunch of interesting but weird new features.
 
+Join my discord for more information, updates, and discussion on the mod [FX's Discord](https://discord.gg/vurv5pdFpa)
+
 # Features
 ## commandWeird
 Simple toggle for the /weird command
@@ -248,6 +250,13 @@ Allow's players with invalid sessions to join the server, a lot like onlineMode
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
+## anvilColorFormatting
+Allows the use of spigot formatting inside of anvils
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
 - `#000000` [Black] Null Chunks
@@ -268,6 +277,8 @@ Allow's players with invalid sessions to join the server, a lot like onlineMode
    - radius - Sets the amount of chunks that should be watched next to it
    - start - Starts displaying the chunks
    - stop - Stops displaying the chunks
+`/weird color`
+ - color - Shows a color table to use with anvilColorFormatting
 
 
 
