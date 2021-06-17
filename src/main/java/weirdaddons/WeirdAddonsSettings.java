@@ -272,6 +272,18 @@ public class WeirdAddonsSettings {
     )
     public static boolean onlineMode = CarpetServer.minecraft_server == null || CarpetServer.minecraft_server.isOnlineMode();
 
+    @Rule(
+            desc = "Allows the dragon egg to be mined",
+            category = {WEIRD, EXPERIMENTAL}
+    )
+    public static boolean breakableDragonEgg = false;
+
+    @Rule(
+            desc = "Ender Dragon always drops a dragon egg when killed",
+            category = {WEIRD, EXPERIMENTAL}
+    )
+    public static boolean dragonAlwaysDropsEgg = false;
+
     /*@Rule(
             desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
             extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
