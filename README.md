@@ -243,12 +243,26 @@ Elytra won't take damage from flight
 * Additional notes:
     * Requested by Pixeils
 
-## allowUnauthenticatedPlayers
-Allow's players with invalid sessions to join the server, a lot like onlineMode
+## onlineMode
+Allows you to toggle onlineMode
+* Type: `boolean`
+* Default value: `<ServerConfigOnlineModeValue>`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
+## breakableDragonEgg
+Allows the dragon egg to be mined
 * Type: `boolean`
 * Default value: `false`
 * Required options: `false`,`true`
-* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
+## dragonAlwaysDropsEgg
+Ender Dragon always drops a dragon egg when killed
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
 
 ## anvilColorFormatting
 Allows the use of spigot formatting inside of anvils

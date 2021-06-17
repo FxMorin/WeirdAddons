@@ -64,20 +64,19 @@ public class WeirdAddonsSettings {
     public static int observerDelay = 2;
 
     @Rule(
-            desc = "Allows the use of spigot formatting inside of anvils",
-            extra = "To see formatting codes use /weird color",
-            category = {WEIRD,EXPERIMENTAL}
-    )
-    public static boolean anvilColorFormatting = false;
-
-
-    @Rule(
             desc = "Change the pulse length of observers (how long it stays on)",
             validate = Validator.NONNEGATIVE_NUMBER.class,
             strict = false,
             category = {WEIRD,CREATIVE}
     )
     public static int observerPulse = 2;
+
+    @Rule(
+            desc = "Allows the use of spigot formatting inside of anvils",
+            extra = "To see formatting codes use /weird color",
+            category = {WEIRD,EXPERIMENTAL}
+    )
+    public static boolean anvilColorFormatting = false;
 
     @Rule(
             desc = "Pistons will extend and retract with 1 tick of delay",
