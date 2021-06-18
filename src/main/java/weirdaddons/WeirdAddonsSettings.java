@@ -291,6 +291,12 @@ public class WeirdAddonsSettings {
     )
     public static boolean dragonAlwaysDropsEgg = false;
 
+    @Rule(
+            desc = "Shulkers can become cancer, just place a bunch of shulkers next to each other!",
+            category = {WEIRD, CREATIVE}
+    )
+    public static boolean shulkerCancer = false;
+
     /*@Rule(
             desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
             extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
