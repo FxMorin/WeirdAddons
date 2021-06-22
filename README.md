@@ -284,6 +284,8 @@ Feather falling prevents trampling crops
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`EXPERIMENTAL`
+* Additional notes:
+    * Requested by ElyBeatMaker
 
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
