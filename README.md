@@ -271,6 +271,20 @@ Allows the use of spigot formatting inside of anvils
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`EXPERIMENTAL`
 
+## shulkerCancer
+Shulkers can become cancer, just place a bunch of shulkers next to each other!
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
+## featherFallingPlus
+Feather falling prevents trampling crops
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`EXPERIMENTAL`
+
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
 - `#000000` [Black] Null Chunks

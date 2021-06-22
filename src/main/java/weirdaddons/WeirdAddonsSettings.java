@@ -297,6 +297,12 @@ public class WeirdAddonsSettings {
     )
     public static boolean shulkerCancer = false;
 
+    @Rule(
+            desc = "Feather falling prevents trampling crops",
+            category = {WEIRD, CREATIVE}
+    )
+    public static boolean featherFallingPlus = false;
+
     /*@Rule(
             desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
             extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
