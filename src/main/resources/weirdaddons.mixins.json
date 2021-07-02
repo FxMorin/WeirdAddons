@@ -23,6 +23,7 @@
     "ScaffoldingBlockMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerTickSchedulerMixin",
+    "ServerWorld_accuratePositionMixin",
     "ServerWorldMixin",
     "ShulkerEntity$SearchForTargetGoalMixin",
     "ShulkerEntityMixin",

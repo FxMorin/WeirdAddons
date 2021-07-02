@@ -276,14 +276,23 @@ Shulkers can become cancer, just place a bunch of shulkers next to each other!
 * Type: `boolean`
 * Default value: `false`
 * Required options: `false`,`true`
-* Categories: `WEIRD`,`EXPERIMENTAL`
+* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
 ## featherFallingPlus
 Feather falling prevents trampling crops
 * Type: `boolean`
 * Default value: `false`
 * Required options: `false`,`true`
-* Categories: `WEIRD`,`EXPERIMENTAL`
+* Categories: `WEIRD`,`CREATIVE`
+* Additional notes:
+    * Requested by ElyBeatMaker
+
+## accurateEntityPositions
+Will send an entity position packet for every tick
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`CREATIVE`
 * Additional notes:
     * Requested by ElyBeatMaker
 

@@ -299,9 +299,16 @@ public class WeirdAddonsSettings {
 
     @Rule(
             desc = "Feather falling prevents trampling crops",
-            category = {WEIRD, CREATIVE}
+            category = {WEIRD, CREATIVE, EXPERIMENTAL}
     )
     public static boolean featherFallingPlus = false;
+
+    @Rule(
+            desc = "Will send an entity position packet for every tick",
+            extra = "May cause severe network lag if too many entities are loaded",
+            category = {WEIRD, CREATIVE}
+    )
+    public static boolean accurateEntityPositions = false;
 
     /*@Rule(
             desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
