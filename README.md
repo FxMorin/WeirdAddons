@@ -293,8 +293,13 @@ Will send an entity position packet for every tick
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`
-* Additional notes:
-    * Requested by ElyBeatMaker
+
+## fallingBlockMechanic
+A mechanic to make any block a falling block
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks

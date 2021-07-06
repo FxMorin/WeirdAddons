@@ -310,6 +310,13 @@ public class WeirdAddonsSettings {
     )
     public static boolean accurateEntityPositions = false;
 
+    @Rule(
+            desc = "A mechanic to make any block a falling block",
+            extra = "If a LIT lamp is moved under a beacon which has a fallingBlock above it, the block below the lamp turns into a falling block",
+            category = {WEIRD, CREATIVE, EXPERIMENTAL}
+    )
+    public static boolean fallingBlockMechanic = false;
+
     /*@Rule(
             desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
             extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
