@@ -4,6 +4,7 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;    
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -26,16 +27,11 @@ public class WeirdAddonsServer implements CarpetExtension, ModInitializer
     public void onGameStarted() {
         CarpetServer.settingsManager.parseSettingsClass(WeirdAddonsSettings.class);
     }
-
+    
     @Override
     public void onServerLoadedWorlds(MinecraftServer minecraftServer){
-        for (CarpetExtension e : CarpetServer.extensions) {
-            if (e.version().equals("carpet-extra")) {
-                //Check if carpetExtra is loaded so we can use its rules
-                isCarpetExtraLoaded = true;
-                break;
-            }
-        }
+        //A better way to check if carpetExtra is loaded
+        isCarpetExtraLoaded = FabricLoader.getInstance().isModLoaded("carpet-extra");
     }
 
     @Override
