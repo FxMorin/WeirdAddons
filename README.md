@@ -39,13 +39,6 @@ Makes moving_piston (B36) movable. Requires MovableBlockEntities to be on. Very 
 * Required options: `true`,`false`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
-## pushThroughNetherPortal
-Allows pistons to push blocks through nether portals
-* Type: `boolean`
-* Default value: `false`
-* Required options: `true`,`false`
-* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
-
 ## blockUpdateHell
 Basically all setBlock calls will use this number
 * Type: `int`  
