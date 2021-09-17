@@ -3,6 +3,8 @@
   "id": "weirdaddons",
   "version": "${version}",
 
+  "accessWidener" : "weirdaddons.accesswidener",
+
   "name": "Weird Addons",
   "description": "The place where I put all my weird carpet changes, although some are actually really useful",
   "authors": [
@@ -14,7 +16,6 @@
     "sources": "https://github.com/fxmorin/WeirdAddons",
     "issues": "https://github.com/fxmorin/WeirdAddons/issues"
   },
-
   "license": "CC0-1.0",
   "icon": "assets/weirdaddons/icon.png",
 

@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import weirdaddons.WeirdAddonsSettings;
 
 @Mixin(PistonBlockEntity.class)
-public abstract class PistonBlockEntityMixin extends BlockEntity {
+public abstract class PistonBlockEntity_movableMovingPistonMixin extends BlockEntity {
     @Shadow private float progress;
     @Shadow private boolean source;
     @Shadow private BlockState pushedBlock;
@@ -29,7 +29,7 @@ public abstract class PistonBlockEntityMixin extends BlockEntity {
     @Shadow private Direction facing;
     @Shadow @Final private static final ThreadLocal<Direction> field_12205 = ThreadLocal.withInitial(() -> null);
 
-    public PistonBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
+    public PistonBlockEntity_movableMovingPistonMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
 
 
     @Shadow public Direction getMovementDirection() { return Direction.UP; }

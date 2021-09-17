@@ -19,6 +19,10 @@ group = project.maven_group
 minecraft {
 }
 
+loom {
+	accessWidener = file("src/main/resources/weirdaddons.accesswidener")
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"

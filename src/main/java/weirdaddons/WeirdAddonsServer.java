@@ -49,4 +49,6 @@ public class WeirdAddonsServer implements CarpetExtension, ModInitializer
             WeirdAddonsUtils.updateDisplayingChunks(server);
         }
     }
+
+    public static void onShutdown() {}
 }

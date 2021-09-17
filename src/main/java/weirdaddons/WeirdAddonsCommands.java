@@ -1,15 +1,20 @@
 package weirdaddons;
 
+import carpet.helpers.TickSpeed;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.command.argument.ColumnPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ColumnPos;
+import weirdaddons.utils.BlockEventManager;
 
 import java.util.UUID;
 
+import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
+import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
+import static net.minecraft.command.CommandSource.suggestMatching;
 import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandManager.argument;
 
@@ -67,9 +72,9 @@ public class WeirdAddonsCommands {
                                 })
                         ).
                         then(literal("radius").
-                                then(argument("radius", IntegerArgumentType.integer(0)).
+                                then(argument("radius", integer(0)).
                                         executes((c) -> {
-                                            WeirdAddonsSettings.chunkRadius = IntegerArgumentType.getInteger(c, "radius");
+                                            WeirdAddonsSettings.chunkRadius = getInteger(c, "radius");
                                             WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "Chunk Radius has been set to: " + WeirdAddonsSettings.chunkRadius);
                                             return 1;
                                         }))
@@ -116,5 +121,53 @@ public class WeirdAddonsCommands {
                                     return 1;
                                 })
                         ));
+        dispatcher.register(literal("be").requires((player) -> SettingsManager.canUseCommand(player, WeirdAddonsSettings.commandBlockEvent)).
+                then(literal("skip").
+                        executes((c) -> {
+                            BlockEventManager.setSkip(true);
+                            WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "blockevents will be skipped for 1 tick");
+                            return 1;
+                        })).
+                then(literal("step").
+                        executes((c) -> {
+                            BlockEventManager.setSteps(1);
+                            WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "Stepping 1 blockevent");
+                            return 1;
+                        }).
+                        then(argument("ticks", integer(1,72000)).
+                                suggests( (c, b) -> suggestMatching(new String[]{"1","5"},b)).
+                                executes((c) -> {
+                                    int ticks = getInteger(c,"ticks");
+                                    BlockEventManager.setSteps(ticks);
+                                    WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "Stepping "+ticks+" blockevent"+(ticks > 1 ? "s" : ""));
+                                    return 1;
+                                }))).
+                then(literal("stepdelay").
+                        executes((c) -> {
+                                ServerPlayerEntity player = c.getSource().getPlayer();
+                                BlockEventManager.setSteps(player.getServerWorld().syncedBlockEventQueue.size());
+                                WeirdAddonsUtils.sendToPlayer(player.getUuid(), "Stepping 1 blockevent");
+                                return 1;
+                        })).
+                then(literal("count").
+                        executes((c) -> {
+                            ServerPlayerEntity player = c.getSource().getPlayer();
+                            WeirdAddonsUtils.sendToPlayer(player.getUuid(), "Block event delay this tick: "+player.getServerWorld().syncedBlockEventQueue.size());
+                            return 1;
+                        })).
+                then(literal("freeze").
+                        executes((c) -> {
+                            if (TickSpeed.isPaused()) {
+                                BlockEventManager.setFrozen(!BlockEventManager.isFrozen());
+                                if (BlockEventManager.isFrozen()) {
+                                    WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "Blockevents are now Frozen");
+                                } else {
+                                    WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "Blockevents are no longer Frozen");
+                                }
+                            } else {
+                                WeirdAddonsUtils.sendToPlayer(c.getSource().getPlayer().getUuid(), "/tick freeze must be active to freeze blockevents");
+                            }
+                            return 1;
+                        })));
     }
 }

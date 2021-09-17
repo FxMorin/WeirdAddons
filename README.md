@@ -33,7 +33,14 @@ Pistons will extend and retract with 1 tick of delay
 * Categories: `WEIRD`,`CREATIVE`
 
 ## movableMovingPiston
-Makes moving_piston (B36) movable. Requires MovableBlockEntities to be on
+Makes moving_piston (B36) movable. Requires MovableBlockEntities to be on. Very unstable and made for the fun of proving it can be done!
+* Type: `boolean`
+* Default value: `false`
+* Required options: `true`,`false`
+* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
+
+## pushThroughNetherPortal
+Allows pistons to push blocks through nether portals
 * Type: `boolean`
 * Default value: `false`
 * Required options: `true`,`false`
@@ -296,6 +303,13 @@ Will send an entity position packet for every tick
 
 ## fallingBlockMechanic
 A mechanic to make any block a falling block
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
+
+## pitchBlackSpawning
+Mobs 
 * Type: `boolean`
 * Default value: `false`
 * Required options: `false`,`true`

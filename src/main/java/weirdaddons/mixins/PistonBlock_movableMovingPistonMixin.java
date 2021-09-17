@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import weirdaddons.WeirdAddonsSettings;
 
 @Mixin(PistonBlock.class)
-public class PistonBlockMixin {
+public class PistonBlock_movableMovingPistonMixin {
 
     private static boolean isPushableBlockEntity(Block block) { //Overrides Carpet's isPushableBlockEntity()
         //Making PISTON_EXTENSION (BlockPistonMoving) pushable would not work as its createNewTileEntity()-method returns null

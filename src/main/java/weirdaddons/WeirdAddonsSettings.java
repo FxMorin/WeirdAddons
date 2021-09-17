@@ -2,12 +2,10 @@ package weirdaddons;
 
 import carpet.CarpetServer;
 import carpet.CarpetSettings;
-import carpet.network.CarpetClient;
 import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
 import carpet.utils.Messenger;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -56,6 +54,15 @@ public class WeirdAddonsSettings {
     public static String commandWeird = "ops";
 
     @Rule(
+            desc = "Enables the /be command",
+            extra = "The /be command allows for block event ticking and stepping much like tick freeze but on a deeper level",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops","false","true"},
+            category = {WEIRD,CREATIVE}
+    )
+    public static String commandBlockEvent = "ops";
+
+    @Rule(
             desc = "Change the delay length of observers (how long it takes to turn on)",
             validate = Validator.NONNEGATIVE_NUMBER.class,
             strict = false,
@@ -84,13 +91,18 @@ public class WeirdAddonsSettings {
     )
     public static boolean fastPistons = false;
 
-
     @Rule(
-            desc = "Makes moving_piston (B36) movable. Requires MovableBlockEntities to be on",
+            desc = "Makes moving_piston (B36) movable. Requires MovableBlockEntities to be on. Very unstable and made for the fun of proving it can be done!",
             validate = movableMovingPistonValidator.class,
             category = {WEIRD,CREATIVE,EXPERIMENTAL}
     )
     public static boolean movableMovingPiston = false;
+
+    /*@Rule(
+            desc = "Allows pistons to push blocks through nether portals",
+            category = {WEIRD,CREATIVE,EXPERIMENTAL}
+    )
+    public static boolean pushThroughNetherPortal = false;*/
 
     @Rule(
             desc = "Basically all setBlock calls will use this number",
@@ -342,7 +354,9 @@ public class WeirdAddonsSettings {
 
     private static class onlineModeValidator extends Validator<Boolean> {
         @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
-            source.getMinecraftServer().setOnlineMode(currentRule.getBoolValue());
+            if (source != null) {
+                source.getMinecraftServer().setOnlineMode(currentRule.getBoolValue());
+            }
             return currentRule.getBoolValue();
         }
     }
@@ -375,7 +389,7 @@ public class WeirdAddonsSettings {
 
     private static class blockUpdateValiator extends Validator<Integer> {
         @Override public Integer validate(ServerCommandSource source, ParsedRule<Integer> currentRule, Integer newValue, String string) {
-            if (newValue < -2 || newValue > 127) {
+            if (newValue < -2 || newValue > 127 && source != null) {
                 Messenger.m(source, "You must choose a value from -2 to 127");
                 return null;
             }

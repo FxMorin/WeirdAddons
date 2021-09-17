@@ -24,5 +24,4 @@ public class ServerWorldMixin {
     public boolean OfCourseYouCanTickThatBlock(ServerChunkManager serverChunkManager, long l) {
         return (WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks) || serverChunkManager.method_37114(l);
     }
-
 }
