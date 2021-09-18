@@ -46,9 +46,12 @@ public abstract class ServerWorld_blockEventMixin extends World {
 
     @Inject(
             method = "tick",
-            at = @At("HEAD")
-    )
-    public void tick(BooleanSupplier keepTicking, CallbackInfo ci) {
+            at = @At(
+                    value="INVOKE",
+                    target="Lnet/minecraft/server/world/ServerWorld;processSyncedBlockEvents()V",
+                    shift= At.Shift.BEFORE
+            ))
+    private void beforeBlockEvents(BooleanSupplier keepTicking, CallbackInfo ci) {
         if(TickSpeed.isPaused() && BlockEventManager.isFrozen()) {
             if(!syncedBlockEventQueue.isEmpty()) {
                 if (BlockEventManager.doStep()) {
