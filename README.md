@@ -301,13 +301,6 @@ A mechanic to make any block a falling block
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
 
-## pitchBlackSpawning
-Mobs 
-* Type: `boolean`
-* Default value: `false`
-* Required options: `false`,`true`
-* Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
-
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
 - `#000000` [Black] Null Chunks
