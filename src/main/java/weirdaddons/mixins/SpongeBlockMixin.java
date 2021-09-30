@@ -20,7 +20,13 @@ public class SpongeBlockMixin extends Block {
 
     public SpongeBlockMixin(Settings settings) {super(settings);}
 
-    @Redirect(method = "update(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/SpongeBlock;absorbWater(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z"))
+    @Redirect(
+            method = "update(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+            require = 0,
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/block/SpongeBlock;absorbWater(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z"
+            ))
     private boolean spongeMadness(SpongeBlock spongeBlock, World world, BlockPos pos) {
         Queue<Pair<BlockPos, Integer>> queue = Lists.newLinkedList();
         queue.add(new Pair(pos, 0));
@@ -67,7 +73,13 @@ public class SpongeBlockMixin extends Block {
         return i > 0;
     }
 
-    @Redirect(method = "update(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
+    @Redirect(
+            method = "update(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V",
+            require = 0,
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"
+            ))
     protected boolean spongeCeption(World world, BlockPos pos, BlockState state, int flags) {
         if (WeirdAddonsSettings.spongeCeption) {
             return world.setBlockState(pos, Blocks.AIR.getDefaultState(), flags);
