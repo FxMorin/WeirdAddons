@@ -8,8 +8,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
-public class WeirdAddonsServer implements CarpetExtension, ModInitializer
-{
+public class WeirdAddonsServer implements CarpetExtension, ModInitializer {
     public static boolean isCarpetExtraLoaded = false;
 
     @Override

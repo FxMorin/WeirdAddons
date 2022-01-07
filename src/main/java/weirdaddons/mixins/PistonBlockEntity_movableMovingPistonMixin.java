@@ -47,7 +47,7 @@ public abstract class PistonBlockEntity_movableMovingPistonMixin extends BlockEn
         return WeirdAddonsSettings.fastPistons || world.isClient;
     }
 
-    @Inject(method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/shape/VoxelShape;", at = @At(value = "INVOKE"), cancellable = true)
+    @Inject(method = "getCollisionShape(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/shape/VoxelShape;", at = @At(value = "HEAD"), cancellable = true)
     public void getCollisionShape(BlockView world, BlockPos pos, CallbackInfoReturnable<VoxelShape> cir) {
         if (WeirdAddonsSettings.movableMovingPiston) {
             VoxelShape voxelShape2 = (!this.extending && this.source) ? (this.pushedBlock.with(PistonBlock.EXTENDED, true)).getCollisionShape(world, pos) : VoxelShapes.empty();

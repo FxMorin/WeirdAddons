@@ -1,7 +1,8 @@
 package weirdaddons.mixins;
 
 import carpet.utils.Messenger;
-import net.minecraft.world.ChunkRegion;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,11 +11,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import weirdaddons.WeirdAddonsSettings;
 
+import java.util.Objects;
+
 @Mixin(ChunkGenerator.class)
 public abstract class ChunkGeneratorMixin {
 
     @Inject(method = "generateFeatures", at = @At("HEAD"))
-    public void stopInstantMechanicsOnGenerateFeatures(ChunkRegion region, StructureAccessor accessor, CallbackInfo ci) {
+    public void stopInstantMechanicsOnGenerateFeatures(StructureWorldAccess world, Chunk chunk, StructureAccessor structureAccessor, CallbackInfo ci) {
         if (WeirdAddonsSettings.instantFallMechanic && WeirdAddonsSettings.instantFall) {
             WeirdAddonsSettings.instantFall = false;
         }
@@ -26,7 +29,7 @@ public abstract class ChunkGeneratorMixin {
             if (WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.CRASHFIX && WeirdAddonsSettings.instantTileTickMechanic != WeirdAddonsSettings.InstantTileTickEnum.VANILLACRASHFIX) { //If crashFix is not on
                 throw new StackOverflowError();
             } else {
-                Messenger.print_server_message(region.toServerWorld().getServer(), "InstantTileTick caused a server crash from region: "+region.toString()+" - Region Center Pos: "+region.getCenterPos());
+                Messenger.print_server_message(Objects.requireNonNull(world.getServer()), "InstantTileTick caused a server crash from chunk: "+chunk.toString());
             }
         }
     }

@@ -25,7 +25,14 @@ public class ObserverBlockMixin extends FacingBlock {
 
     @Shadow protected void updateNeighbors(World world, BlockPos pos, BlockState state) {}
 
-    @ModifyArg(method = "scheduleTick(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/TickScheduler;schedule(Lnet/minecraft/util/math/BlockPos;Ljava/lang/Object;I)V"), index = 2)
+    @ModifyArg(
+            method = "scheduleTick(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/WorldAccess;createAndScheduleBlockTick(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;I)V"
+            ),
+            index = 2
+    )
     private int adjustDelay(int delay) {
         return WeirdAddonsSettings.observerDelay;
     }
@@ -36,7 +43,7 @@ public class ObserverBlockMixin extends FacingBlock {
             world.setBlockState(pos, state.with(POWERED, false), 2);
         } else {
             world.setBlockState(pos, state.with(POWERED, true), 2);
-            world.getBlockTickScheduler().schedule(pos, this, WeirdAddonsSettings.observerPulse);
+            world.createAndScheduleBlockTick(pos, this, WeirdAddonsSettings.observerPulse);
         }
         this.updateNeighbors(world, pos, state);
     }

@@ -54,15 +54,6 @@ public class WeirdAddonsSettings {
     public static String commandWeird = "ops";
 
     @Rule(
-            desc = "Enables the /be command",
-            extra = "The /be command allows for block event ticking and stepping much like tick freeze but on a deeper level",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops","false","true"},
-            category = {WEIRD,CREATIVE}
-    )
-    public static String commandBlockEvent = "ops";
-
-    @Rule(
             desc = "Change the delay length of observers (how long it takes to turn on)",
             validate = Validator.NONNEGATIVE_NUMBER.class,
             strict = false,
@@ -329,15 +320,6 @@ public class WeirdAddonsSettings {
     )
     public static boolean fallingBlockMechanic = false;
 
-    /*@Rule(
-            desc = "Placing a redstone on top of redstone ore will act as a zero tick generator",
-            extra = {"If a number is entered, it will be the delay in ticks between pulses","Enabling this will cause all redstone ore blocks to be transparent"},
-            options = {"false","true","1"},
-            validate = zeroTickGeneratorValidator.class,
-            category = {CREATIVE, WEIRD, EXPERIMENTAL}
-    )
-    public static String zeroTickGeneratorBlock = "false";*/
-
     /*
 
     Validators
@@ -355,7 +337,7 @@ public class WeirdAddonsSettings {
     private static class onlineModeValidator extends Validator<Boolean> {
         @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
             if (source != null) {
-                source.getMinecraftServer().setOnlineMode(currentRule.getBoolValue());
+                source.getServer().setOnlineMode(currentRule.getBoolValue());
             }
             return currentRule.getBoolValue();
         }

@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "weirdaddons.mixins",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractBlockStateMixin",
     "AnvilScreenHandlerMixin",
@@ -23,18 +23,17 @@
     "RedstoneLampBlockMixin",
     "ScaffoldingBlockMixin",
     "ServerPlayerInteractionManagerMixin",
-    "ServerTickSchedulerMixin",
     "ServerWorld_accuratePositionMixin",
-    "ServerWorld_blockEventMixin",
     "ServerWorldMixin",
-    "ShulkerEntity$SearchForTargetGoalMixin",
     "ShulkerEntityMixin",
     "SpongeBlockMixin",
     "ThreadedAnvilChunkStorageMixin",
     "TridentEntityMixin",
     "WitherEntityMixin",
+    "WorldAccess_fastTickMixin",
     "WorldBorderMixin",
-    "WorldMixin"
+    "WorldMixin",
+    "WorldTickScheduler_instantMixin"
   ],
   "injectors": {
     "defaultRequire": 1

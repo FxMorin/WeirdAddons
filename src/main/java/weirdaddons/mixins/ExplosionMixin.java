@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,7 +35,7 @@ import java.util.Set;
 public class ExplosionMixin {
 
     @Shadow @Final private List<BlockPos> affectedBlocks;
-    @Shadow @Final @Nullable private Entity entity;
+    @Shadow @Final private Entity entity;
     @Shadow @Final private World world;
     @Shadow @Final private float power;
     @Shadow @Final private double x;

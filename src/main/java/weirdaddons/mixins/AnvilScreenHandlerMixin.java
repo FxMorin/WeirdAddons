@@ -27,7 +27,7 @@ public abstract class AnvilScreenHandlerMixin extends ScreenHandler {
     @Shadow
     public abstract void updateResult();
 
-    @Inject(at = @At("INVOKE"), method = "setNewItemName", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "setNewItemName", cancellable = true)
     public void setNewItemName(String string, CallbackInfo info) {
         if (WeirdAddonsSettings.anvilColorFormatting) {
 

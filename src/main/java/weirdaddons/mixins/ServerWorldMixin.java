@@ -12,16 +12,40 @@ import weirdaddons.WeirdAddonsSettings;
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
 
-    @Inject(method = "tick(Ljava/util/function/BooleanSupplier;)V", at = @At("HEAD"))
+
+    @Inject(
+            method = "tick(Ljava/util/function/BooleanSupplier;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
+                    shift = At.Shift.BEFORE,
+                    ordinal = 0
+            )
+    )
     public void BeforeBlockTicks(CallbackInfo ci) {
         WeirdAddonsSettings.insideBlockTicks = true;
     }
 
-    @Redirect(method = "method_37117(Lnet/minecraft/util/math/BlockPos;)Z", at = @At(
+
+    @Inject(
+            method = "tick(Ljava/util/function/BooleanSupplier;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/tick/WorldTickScheduler;tick(JILjava/util/function/BiConsumer;)V",
+                    shift = At.Shift.BEFORE,
+                    ordinal = 1
+            )
+    )
+    public void BeforeFluidTicks(CallbackInfo ci) {
+        WeirdAddonsSettings.insideBlockTicks = false;
+    }
+
+
+    @Redirect(method = "isTickingFutureReady(J)Z", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/world/ServerChunkManager;method_37114(J)Z"
+            target = "Lnet/minecraft/server/world/ServerChunkManager;isTickingFutureReady(J)Z"
     ))
     public boolean OfCourseYouCanTickThatBlock(ServerChunkManager serverChunkManager, long l) {
-        return (WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks) || serverChunkManager.method_37114(l);
+        return (WeirdAddonsSettings.instantTileTick && WeirdAddonsSettings.insideBlockTicks) || (WeirdAddonsSettings.instantLiquidFlow && !WeirdAddonsSettings.insideBlockTicks) || serverChunkManager.isTickingFutureReady(l);
     }
 }

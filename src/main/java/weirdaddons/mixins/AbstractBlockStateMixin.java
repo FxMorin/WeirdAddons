@@ -18,7 +18,7 @@ public abstract class AbstractBlockStateMixin {
     @Shadow @Final private AbstractBlock.ContextPredicate solidBlockPredicate;
     @Shadow protected BlockState asBlockState() { return null; }
 
-    @Inject(method = "isSolidBlock", at = @At(value = "INVOKE"), cancellable = true)
+    @Inject(method = "isSolidBlock", at = @At(value = "HEAD"), cancellable = true)
     private void whatIsConsideredASolidBlock(BlockView world, BlockPos pos,CallbackInfoReturnable<Boolean> cir){
         if (WeirdAddonsSettings.blockTransparency != WeirdAddonsSettings.BlockTransparencyEnum.NORMAL) {
             if (world.getBlockState(pos).isAir()) {

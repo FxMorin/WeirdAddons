@@ -47,9 +47,7 @@ public class TridentEntityMixin extends PersistentProjectileEntity {
                 } else {
                     this.setPos(this.getX(), this.getY() + vec3d.y * 0.015D * (double) i, this.getZ());
                 }
-                if (this.world.isClient) {
-                    this.lastRenderY = this.getY();
-                }
+                if (this.world.isClient) this.lastRenderY = this.getY();
                 double d = 0.05D * (double)i;
                 this.setVelocity(this.getVelocity().multiply(0.95D).add(vec3d.normalize().multiply(d)));
                 if (this.returnTimer == 0) {
