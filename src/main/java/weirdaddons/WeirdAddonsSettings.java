@@ -10,8 +10,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 
-import static carpet.settings.RuleCategory.CREATIVE;
-import static carpet.settings.RuleCategory.EXPERIMENTAL;
+import static carpet.settings.RuleCategory.*;
 
 public class WeirdAddonsSettings {
     public static boolean insideBlockTicks = false;
@@ -319,6 +318,12 @@ public class WeirdAddonsSettings {
             category = {WEIRD, CREATIVE, EXPERIMENTAL}
     )
     public static boolean fallingBlockMechanic = false;
+
+    @Rule(
+            desc = "Disabled client-side entity interpolation",
+            category = {WEIRD, CREATIVE, CLIENT}
+    )
+    public static boolean disableEntityInterpolation = false;
 
     /*
 

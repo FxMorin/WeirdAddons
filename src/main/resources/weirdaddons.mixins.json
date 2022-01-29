@@ -10,7 +10,6 @@
     "DragonEggBlockMixin",
     "EnchantCommandMixin",
     "EnderDragonFightMixin",
-    "EntityTrackerEntry_accuratePositionMixin",
     "ExecuteCommandMixin",
     "ExplosionMixin",
     "FallingBlockMixin",
@@ -34,6 +33,13 @@
     "WorldBorderMixin",
     "WorldMixin",
     "WorldTickScheduler_instantMixin"
+  ],
+  "server": [
+    "EntityTrackerEntry_accuratePositionMixin"
+  ],
+  "client": [
+    "BoatEntity_accuratePositionMixin",
+    "ClientPlayNetworkHandler_interpolationMixin"
   ],
   "injectors": {
     "defaultRequire": 1
