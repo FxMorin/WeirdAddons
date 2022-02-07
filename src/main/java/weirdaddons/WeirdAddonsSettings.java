@@ -275,13 +275,6 @@ public class WeirdAddonsSettings {
     public static boolean totallyLegitElytra = false;
 
     @Rule(
-            desc = "Allows you to toggle onlineMode",
-            validate = onlineModeValidator.class,
-            category = {WEIRD,CREATIVE,EXPERIMENTAL}
-    )
-    public static boolean onlineMode = CarpetServer.minecraft_server == null || CarpetServer.minecraft_server.isOnlineMode();
-
-    @Rule(
             desc = "Allows the dragon egg to be mined",
             category = {WEIRD, EXPERIMENTAL}
     )
@@ -337,15 +330,6 @@ public class WeirdAddonsSettings {
         }
         @Override
         public String description() { return "MovableBlockEntities must be enabled to use this";}
-    }
-
-    private static class onlineModeValidator extends Validator<Boolean> {
-        @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
-            if (source != null) {
-                source.getServer().setOnlineMode(currentRule.getBoolValue());
-            }
-            return currentRule.getBoolValue();
-        }
     }
 
     /*private static class zeroTickGeneratorValidator extends Validator<String> {
