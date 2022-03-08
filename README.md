@@ -243,13 +243,6 @@ Elytra won't take damage from flight
 * Additional notes:
     * Requested by Pixeils
 
-## onlineMode
-Allows you to toggle onlineMode
-* Type: `boolean`
-* Default value: `<ServerConfigOnlineModeValue>`
-* Required options: `false`,`true`
-* Categories: `WEIRD`,`EXPERIMENTAL`
-
 ## breakableDragonEgg
 Allows the dragon egg to be mined
 * Type: `boolean`
@@ -300,6 +293,20 @@ A mechanic to make any block a falling block
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `WEIRD`,`CREATIVE`,`EXPERIMENTAL`
+
+## disableEntityInterpolation
+Disabled client-side entity interpolation
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`CREATIVE`,`CLIENT`
+
+## easyWither
+Makes the wither act as if the difficulty is easy
+* Type: `boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `WEIRD`,`CREATIVE`
 
 # Chunk Legend
 - `#ff0000` [Red] Inaccessible Chunks
