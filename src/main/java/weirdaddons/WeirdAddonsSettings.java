@@ -318,6 +318,12 @@ public class WeirdAddonsSettings {
     )
     public static boolean disableEntityInterpolation = false;
 
+    @Rule(
+            desc = "Makes the wither act as if the difficulty is easy",
+            category = {WEIRD, CREATIVE}
+    )
+    public static boolean easyWither = false;
+
     /*
 
     Validators
