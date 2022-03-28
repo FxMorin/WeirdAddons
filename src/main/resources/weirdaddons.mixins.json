@@ -14,6 +14,8 @@
     "ExplosionMixin",
     "FallingBlockMixin",
     "FarmlandBlock_featherFallingMixin",
+    "ItemFrameEntity_shadowMixin",
+    "LightningEntity_shadowMixin",
     "LivingEntity_shulkerCancerMixin",
     "LivingEntityMixin",
     "MinecraftServer_eventsMixin",

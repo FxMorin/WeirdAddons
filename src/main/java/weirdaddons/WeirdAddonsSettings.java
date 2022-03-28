@@ -41,6 +41,12 @@ public class WeirdAddonsSettings {
         ALL
     }
 
+    public enum itemShadowingMechanics {
+        OFF,
+        LIGHTNING,
+        SPECTRAL
+    }
+
     private final static String WEIRD = "weird";
 
     @Rule(
@@ -323,6 +329,17 @@ public class WeirdAddonsSettings {
             category = {WEIRD, CREATIVE}
     )
     public static boolean easyWither = false;
+
+    @Rule(
+            desc = "Mechanic to create shadow items without a suppressor",
+            extra = {"Lightning Mechanic: Lightning hitting an item frame on an inventory," +
+                    " will create a shadow item of the item in the frame and put it in the inventory.",
+                    "Spectral Mechanic: Shooting an item frame on an inventory with a burning spectral arrow," +
+                    " will create a shadow item of the item in the frame and put it in the inventory.",
+                    "Do this twice!"},
+            category = {WEIRD, EXPERIMENTAL}
+    )
+    public static itemShadowingMechanics itemShadowingMechanic = itemShadowingMechanics.OFF;
 
     /*
 

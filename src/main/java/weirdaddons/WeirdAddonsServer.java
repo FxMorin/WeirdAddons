@@ -8,8 +8,13 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
+import java.lang.reflect.Method;
+
 public class WeirdAddonsServer implements CarpetExtension, ModInitializer {
     public static boolean isCarpetExtraLoaded = false;
+    public static boolean isCarpetShadowLoaded = false;
+    public static Class CarpetShadowGlobals;
+    public static Method CarpetShadowGetByIdOrAdd;
 
     @Override
     public String version()
@@ -31,6 +36,16 @@ public class WeirdAddonsServer implements CarpetExtension, ModInitializer {
     public void onServerLoadedWorlds(MinecraftServer minecraftServer){
         //A better way to check if carpetExtra is loaded
         isCarpetExtraLoaded = FabricLoader.getInstance().isModLoaded("carpet-extra");
+        isCarpetShadowLoaded = FabricLoader.getInstance().isModLoaded("carpet-shadow");
+        if (isCarpetShadowLoaded) {
+            try {
+                CarpetShadowGlobals = Class.forName("com.carpet_shadow.Globals");
+                CarpetShadowGetByIdOrAdd = CarpetShadowGlobals.getMethod("getByIdOrAdd");
+            } catch (NoSuchMethodException | ClassNotFoundException e) {
+                isCarpetShadowLoaded = false;
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
