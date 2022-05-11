@@ -29,7 +29,7 @@ public abstract class AnvilScreenHandlerMixin extends ScreenHandler {
 
     @Inject(at = @At("HEAD"), method = "setNewItemName", cancellable = true)
     public void setNewItemName(String string, CallbackInfo info) {
-        if (WeirdAddonsSettings.anvilColorFormatting) {
+        if (WeirdAddonsSettings.anvilColorFormatting && newItemName != null) {
 
             info.cancel();
 
